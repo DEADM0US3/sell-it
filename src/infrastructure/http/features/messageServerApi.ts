@@ -1,5 +1,6 @@
 import { supabaseClient } from "../clientProvider.ts";
 import type {MessageDto} from "../../../contracts/message/messageDto.ts";
+import type { MessageCreateDto } from "../../../contracts/message/messageCreateDto.ts";
 
 export class messagesServerApi {
   static async getConversationMessages(conversationId: string): Promise<MessageDto[]> {
@@ -17,7 +18,7 @@ export class messagesServerApi {
     return data as MessageDto[];
   }
 
-  static async sendMessage(message: Omit<MessageDto, "id" | "sent_at">): Promise<MessageDto | null> {
+  static async sendMessage(message: MessageCreateDto): Promise<MessageDto | null> {
     const { data, error } = await supabaseClient
         .from("messages")
         .insert(message)

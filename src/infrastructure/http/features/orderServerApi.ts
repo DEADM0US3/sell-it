@@ -1,10 +1,11 @@
 
 import { supabaseClient } from "../clientProvider.ts";
 import type {OrderDto} from "../../../contracts/order/orderDto.ts";
+import type { OrderCreateDto } from "../../../contracts/order/orderCreateDto.ts";
 
 
 export class ordersServerApi {
-  static async create(order: Omit<OrderDto, "id" | "created_at" | "updated_at">): Promise<OrderDto | null> {
+  static async create(order: OrderCreateDto): Promise<OrderDto | null> {
     const { data, error } = await supabaseClient
         .from("orders")
         .insert(order)

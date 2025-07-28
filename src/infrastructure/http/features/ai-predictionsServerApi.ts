@@ -1,6 +1,6 @@
 import { supabaseClient } from "../clientProvider.ts";
 import type {AiPredictionDto} from "../../../contracts/ai-prediction/ai-predictionDto.ts";
-
+import type { AiPredictionCreateDto } from "../../../contracts/ai-prediction/ai-predictionCreateDto.ts";
 export class aiPredictionsServerApi {
   static async getByLaptopId(laptopId: string): Promise<AiPredictionDto | null> {
     const { data, error } = await supabaseClient
@@ -17,7 +17,7 @@ export class aiPredictionsServerApi {
     return data as AiPredictionDto;
   }
 
-  static async create(prediction: AiPredictionDto): Promise<AiPredictionDto | null> {
+  static async create(prediction: AiPredictionCreateDto): Promise<AiPredictionDto | null> {
     const { data, error } = await supabaseClient
         .from("ai_predictions")
         .insert(prediction)
