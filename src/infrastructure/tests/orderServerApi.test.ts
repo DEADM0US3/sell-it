@@ -6,8 +6,8 @@ import type { OrderCreateDto } from '../../contracts/order/orderCreateDto.ts';
 describe('Integration: orderServerApi', () => {
 
     const order:OrderCreateDto = {
-        buyer_id: '',
-        laptop_id: '',
+        buyer_id: 'e36ce684-96b7-4a7f-996a-be713afadc3c',
+        laptop_id: import.meta.env.VITE_TEST_RANDOM_ID,
         status: 'completed',
         price_at_purchase: 7500
     }
@@ -25,7 +25,7 @@ describe('Integration: orderServerApi', () => {
     it('should fetch order by buyer Id', async() => {
         const fetched = await ordersServerApi.getByUser(order.buyer_id)
         expect(fetched).not.toBeNull()
-        expect(fetched).toMatchObject(order)
+        expect(fetched[0]).toMatchObject(order)
     })
 
     it('should update the order status', async() => {

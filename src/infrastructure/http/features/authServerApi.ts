@@ -2,20 +2,16 @@
 
   export class authServerApi {
 
-    static async login(email: string, password: string): Promise<boolean> {
+static async login(email: string, password: string): Promise<boolean> {
+  const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
 
-      const { error } = await supabaseClient.auth.signInWithPassword({
-        email,
-        password,
-      });
+  if (error) {
+    console.error(`Login failed: ${error.message}`);
+    return false;
+  }
 
-      if (error) {
-        console.error(`Login failed: ${error.message}`);
-        return false;
-      }
-
-      return true;
-    }
+  return true;
+}
 
     static async register(email: string, password: string): Promise<string> {
       const { data, error } = await supabaseClient.auth.signUp({

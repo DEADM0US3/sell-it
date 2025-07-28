@@ -6,9 +6,11 @@ export class aiPredictionsServerApi {
     const { data, error } = await supabaseClient
         .from("ai_predictions")
         .select("*")
-        .eq("laptop_id", laptopId)
-        .single();
-
+        .eq("laptop_id", laptopId).limit(1)
+        .maybeSingle()
+        
+    console.log("Laptop ID type:", typeof laptopId);
+    console.log("Laptop ID:", JSON.stringify(laptopId));
     if (error) {
       console.error("Error fetching prediction:", error.message);
       return null;
