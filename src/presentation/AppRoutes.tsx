@@ -12,7 +12,6 @@ const AppRoutes: React.FC = () => {
     const routes: RouteObject[] = [
         {
             path: '/',
-            element:<> </>,
             children: [
                 ...HomeRoutes,
             ],

@@ -11,5 +11,5 @@ createRoot(document.getElementById('root')!).render(
             <AppRoutes/>
             <Toaster duration={1000}/>
         </BrowserRouter>
-    </StrictMode>,
+    </StrictMode>
 )

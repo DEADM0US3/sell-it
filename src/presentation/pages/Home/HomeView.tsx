@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { CardsProduct } from '../../layout/components/CardProduct';
 import Logo_transparente from '../../../assets/img/Logo_transparente.png';
 import Borde_home from '../../../assets/img/Borde_home.png';
@@ -8,8 +8,26 @@ import Fond_pago from '../../../assets/img/Fond_pago.jpeg'
 import Laptop_home from '../../../assets/img/Laptop_home.png'
 import Logo_mercado from '../../../assets/img/Logo_mercado.jpeg'
 import { Footer } from '../../layout/components/Footer';
+import { laptopsServerApi } from '../../../infrastructure/http/features/laptopsServerApi';
+
+import type { LaptopDto } from '../../../contracts/laptop/laptopDto';
 
 const HomeView: React.FC = () => {
+    const [data, setData] = useState<LaptopDto[]>()
+
+    const fetchData = async() => {
+        try {
+            const response = await laptopsServerApi.getAll()
+            setData(response)
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    useEffect(() => {
+        fetchData()
+    }, [])
+
     return (
         <>
             <div className=' w-full h-[10vh] rounded-b-full'>
@@ -61,11 +79,15 @@ const HomeView: React.FC = () => {
                     </div>
 
                     <div className='flex gap-4'>
-                    {[...Array(4)].map((_, i) => (
-                        <div key={i} className='min-w-[250px] max-w-[250px]'>
-                        <CardsProduct />
-                        </div>
-                    ))}
+                    {
+                        data && (
+                            data.map((item, index) => (
+                                <div key={index} className='min-w-[250px] max-w-[250px]'>
+                                <CardsProduct laptop={item}/>
+                                </div>
+                            ))
+                        )
+                    }
                     </div>
                     <div className='absolute right-4 top-1/2 transform -translate-y-1/2 z-10'>
                     <img className='w-[2vw] h-[2vw] cursor-pointer' src={Flecha_derecha} alt='Flecha derecha' />

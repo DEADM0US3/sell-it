@@ -22,10 +22,10 @@ export const  CardsProduct: React.FC<CardProductProps> = ({ laptop, imageSrc }) 
 
                 <div className='z-1  bg-[#F3F3F3] rounded-md absolute bottom-0 h-[29vh] md:h-[28vh] shadow-2xl'>
                    <div className='md:py-[6vh] py-[10vh] mx-[1vw]'>
-                        <h2 className=" font-semibold text-xs md:pt-[4vh] text-[#1E4E9C] mt-2">{datos.nombre}</h2>
+                        <h2 className=" font-semibold text-xs md:pt-[4vh] text-[#1E4E9C] mt-2">{laptop.title}</h2>
                         <div className="flex justify-between mt-[3vh]">
                             <div>
-                                <p className="text-sm font-bold text-[#484848] md:mt-2 ">${datos.precio}</p>
+                                <p className="text-sm font-bold text-[#484848] md:mt-2 ">${laptop.price}</p>
                             </div>
                             <div>
                                 <button className="bg-[#14489D] text-white rounded-full md:h-[5vh] w-[6vw] md:w-[2.5vw]">+</button>
