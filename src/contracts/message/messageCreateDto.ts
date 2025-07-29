@@ -1,3 +1,7 @@
 export interface MessageCreateDto {
-  // Add the properties
+  conversation_id: string;
+  sender_id: string;
+  receiver_id: string;
+  content: string;
+  is_read: boolean;
 }

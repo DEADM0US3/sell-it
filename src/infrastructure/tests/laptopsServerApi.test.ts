@@ -70,7 +70,6 @@ describe('Integration: laptopsServerApi', () => {
 
     it('should delete the laptop used for testing', async() => {
         const response = await laptopsServerApi.delete(id)
-        console.log(response)
         expect(response).toBeTruthy()
     })
 

@@ -1,3 +1,4 @@
 export interface UserUpdateDto {
-  // Add the properties
+  name: string,
+  email: string
 }

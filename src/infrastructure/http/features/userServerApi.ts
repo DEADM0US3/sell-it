@@ -7,10 +7,10 @@ export class userServerApi extends baseServerApi {
 
   static async get(): Promise<User | null> {
 
-    if (await this.validateLogin()){
-        console.error("User is not logged in.");
-        return null;
-    }
+  if (!(await this.validateLogin())) {
+    console.error("User is not logged in.");
+    return null;
+  }
 
     const { data, error } = await supabaseClient.auth.getUser();
 
@@ -24,8 +24,8 @@ export class userServerApi extends baseServerApi {
   }
 
   static async update(name: string, email: string): Promise<User | null> {
-
-    if (await this.validateLogin()){
+    
+    if (!(await this.validateLogin())) {
       console.error("User is not logged in.");
       return null;
     }

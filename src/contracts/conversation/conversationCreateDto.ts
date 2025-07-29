@@ -1,3 +1,5 @@
 export interface ConversationCreateDto {
-  // Add the properties
+  buyer_id: string;
+  seller_id: string;
+  laptop_id: string;
 }
