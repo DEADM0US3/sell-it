@@ -3,6 +3,9 @@ import laptop from "../../../assets/img/laptop.png"
 import Logo_transparente from '../../../assets/img/Logo_transparente.png';
 
 const LoginView = () => {
+
+
+
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 min-h-screen">
             <div className="flex flex-col justify-center px-10 lg:px-20">

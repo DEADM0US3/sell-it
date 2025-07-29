@@ -16,6 +16,7 @@ const AppRoutes: React.FC = () => {
                 ...HomeRoutes,
             ],
         },
+
         ...AuthRoutes,
         {
             path: 'not-found',

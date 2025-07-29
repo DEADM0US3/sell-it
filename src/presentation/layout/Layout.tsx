@@ -5,25 +5,6 @@ import { Navbar } from "./components/Navbar";
 import { Footer } from "./components/Footer";
 
 export const Layout = () => {
-    const navigate = useNavigate();
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const checkAuth = async () => {
-            const userId = await authServerApi.getUserId();
-            if (!userId) {
-                // No está autenticado → lo mando al login
-                navigate("/login", { replace: true });
-            } else {
-                // Ya validé y todo OK
-                setLoading(false);
-            }
-        };
-        checkAuth();
-    }, [navigate]);
-
-    // Mientras comprobamos la sesión, no renderizamos nada (o mostrar un spinner)
-    if (loading) return null;
 
     return (
         <div className="flex flex-col min-h-screen">
