@@ -1,5 +1,6 @@
-import Compu from '../../../assets/img/Compu.png';
-import type { LaptopDto } from '../../../contracts/laptop/laptopDto';
+import Compu from '../../assets/img/Compu.png';
+import type { LaptopDto } from '../../contracts/laptop/laptopDto.ts';
+import {useNavigate} from "react-router-dom";
 
 interface CardProductProps {
     laptop: LaptopDto;
@@ -7,6 +8,9 @@ interface CardProductProps {
 }
 
 export const  CardsProduct: React.FC<CardProductProps> = ({ laptop, imageSrc }) => {
+
+    const navigate = useNavigate();
+
     const datos = {
         nombre: "Laptop victus hp gaming 15-Fa1098la intel core i5 16gb ram 1tb ssd",
         precio: "42",
@@ -14,10 +18,12 @@ export const  CardsProduct: React.FC<CardProductProps> = ({ laptop, imageSrc }) 
     };
 
     return (
-        <div className=" w-[36vw] md:w-[14vw] h-[36vh] md:h-[46vh] rounded-lg flex flex-col relative  ">
-            
+        <div
+            onClick={() => navigate(`/products/${laptop.id}`)}
+            className=" w-[36vw] md:w-[14vw] h-[36vh] md:h-[46vh] rounded-lg flex flex-col relative  ">
+
                 <div className='z-2 p-2'>
-                    <img src={datos.imagen} alt={datos.nombre} className="w-full object-cover rounded" />
+                    <img src={datos.imagen} alt={laptop.title} className="w-full object-cover rounded" />
                 </div>
 
                 <div className='z-1  bg-[#F3F3F3] rounded-m md:w-[14vw] absolute bottom-0 w-[40vw] h-[29vh] md:h-[28vh] shadow-2xl'>
@@ -33,7 +39,7 @@ export const  CardsProduct: React.FC<CardProductProps> = ({ laptop, imageSrc }) 
                         </div>
                    </div>
                 </div>
-            
+
         </div>
     );
 };

@@ -1,4 +1,4 @@
-import Compu from '../../../assets/img/Compu.png';
+import Compu from '../../assets/img/Compu.png';
 
 export const CardDetail = () => {
     return (

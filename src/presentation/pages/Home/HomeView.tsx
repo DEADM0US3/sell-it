@@ -34,11 +34,11 @@ const HomeView: React.FC = () => {
             }
         };
 
-    
+
 
 
     return (
-        
+
         <>
             <div className=' w-full md:h-[10vh] rounded-b-full'>
                 <img className='h-[15vh] w-full' src={Borde_home}/>
