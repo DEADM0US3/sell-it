@@ -1,12 +1,13 @@
 import logo from "../../../assets/img/logo.png"
 import laptop from "../../../assets/img/laptop.png"
+import Logo_transparente from '../../../assets/img/Logo_transparente.png';
 
 const LoginView = () => {
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 min-h-screen">
             <div className="flex flex-col justify-center px-10 lg:px-20">
                 <div className="">
-                    <img src={logo} alt="Logo" className=" mb-8 object-cover object-center" />
+                    <img src={Logo_transparente} alt="Logo" className=" mb-8 object-cover object-center" />
                 </div>
 
                 <h1 className="text-2xl font-bold mb-2">
