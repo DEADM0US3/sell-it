@@ -1,5 +1,5 @@
-import Compu from '../../../assets/img/Compu.png';
-import type { LaptopDto } from '../../../contracts/laptop/laptopDto';
+import Compu from '../../assets/img/Compu.png';
+import type { LaptopDto } from '../../contracts/laptop/laptopDto.ts';
 
 interface CardProductProps {
     laptop: LaptopDto;
@@ -7,6 +7,7 @@ interface CardProductProps {
 }
 
 export const  CardsProduct: React.FC<CardProductProps> = ({ laptop, imageSrc }) => {
+
     const datos = {
         nombre: "Laptop victus hp gaming 15-Fa1098la intel core i5 16gb ram 1tb ssd",
         precio: "42",
