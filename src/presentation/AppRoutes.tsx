@@ -7,6 +7,8 @@ import { CardDetail } from './components/CardDetails.tsx';
 import HomeView from './pages/Home/HomeView.tsx';
 import {CartRoutes} from "./pages/Cart/CartRoutes.tsx";
 import {ProductsRoutes} from "./pages/Products/ProductsRoutes.tsx";
+import {IsAuth} from "./components/isAuth.tsx";
+import {DashboardRoutes} from "./pages/Dashboard/DashboardRoutes.tsx";
 
 
 const AppRoutes: React.FC = () => {
@@ -17,10 +19,15 @@ const AppRoutes: React.FC = () => {
             children: [
                 ...HomeRoutes,
                 ...ProductsRoutes,
-                ...CartRoutes
+                ...CartRoutes,
+                {
+                    element: <IsAuth />,
+                    children: [
+                        ...DashboardRoutes,
+                    ],
+                },
             ],
         },
-
         ...AuthRoutes,
         {
             path: 'not-found',
