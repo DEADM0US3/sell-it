@@ -1,7 +1,7 @@
-import {Link, useNavigate} from "react-router-dom";
-import {authServerApi} from "../../../infrastructure/http/features/authServerApi.ts";
-import {useEffect, useState} from "react";
-import {userServerApi} from "../../../infrastructure/http/features/userServerApi.ts";
+import { Link, useNavigate } from "react-router-dom";
+import { authServerApi } from "../../../infrastructure/http/features/authServerApi.ts";
+import { useEffect, useState } from "react";
+import { userServerApi } from "../../../infrastructure/http/features/userServerApi.ts";
 
 export const Navbar = () => {
 
@@ -40,20 +40,21 @@ export const Navbar = () => {
     }, []);
 
     return (
-        <nav className="bg-blue-700 shadow-md px-6 py-4 flex justify-between items-center">
-            <Link to="/" className="text-2xl font-bold text-white hover:text-gray-200 transition-colors">
-                Sell IT
-            </Link>
+        <><nav className="bg-[#15489C] shadow-md px-6 py-4 flex justify-end items-center montserrat">
+
             <div className="flex items-center space-x-6">
+                <Link to="/" className=" text-white hover:text-gray-200 transition-colors montserrat hover:font-bold">
+                    Inicio
+                </Link>
                 <Link
                     to="/products"
-                    className="text-white hover:text-blue-200 font-medium transition-colors"
+                    className="text-white hover:text-blue-200 font-medium transition-colors montserrat hover:font-bold"
                 >
                     Productos
                 </Link>
                 <Link
                     to="/cart"
-                    className="text-white hover:text-blue-200 font-medium transition-colors"
+                    className="text-white hover:text-blue-200 font-medium transition-colors montserrat hover:font-bold"
                 >
                     Carrito
                 </Link>
@@ -63,7 +64,7 @@ export const Navbar = () => {
                         <>
                             <Link
                                 to="/dashboard"
-                                className="text-white hover:text-blue-200 font-medium transition-colors"
+                                className="text-white hover:text-blue-200 font-medium transition-colors montserrat hover:font-bold"
                             >
                                 Dashboard
                             </Link>
@@ -73,27 +74,66 @@ export const Navbar = () => {
 
 
                 {
-                    isAuth? (
+                    isAuth ? (
                         <div
                             onClick={async () => {
                                 await authServerApi.logout()
                                 navigate("/login");
                             }}
-                            className="bg-white text-blue-700 font-semibold px-4 py-2 rounded-md hover:bg-blue-100 transition-colors"
+                            className="bg-[#648ACB] text-white font-semibold px-4 py-2 montserrat  hover:bg-blue-500 transition-colors rounded-3xl hover:font-bold"
                         >
                             Logout
                         </div>
-                    ): (
+                    ) : (
                         <Link
                             to="/login"
-                            className="bg-white text-blue-700 font-semibold px-4 py-2 rounded-md hover:bg-blue-100 transition-colors"
+                            className="bg-[#648ACB] text-white font-semibold px-4 py-2 montserrat hover:bg-blue-500 transition-colors rounded-3xl hover:font-bold"
                         >
-                            Iniciar sesión
+                            Mi cuenta
                         </Link>
                     )
                 }
 
             </div>
         </nav>
+            <div className="bg-white overflow-hidden border-t border-gray-200">
+                <div className="bg-white overflow-hidden border-t border-gray-200">
+                    <div className="whitespace-nowrap">
+                        <div
+                            className="inline-block animate-marquee"
+                            style={{
+                                animation: 'marquee 30s linear infinite',
+                                display: 'inline-block',
+                            }}
+                        >
+                            <span className="text-[#648ACB] montserrat font-medium mx-8">
+                                Compra mínima de $12500 MXN | Envíos a todo México |
+                            </span>
+                            <span className="text-[#648ACB] montserrat font-medium mx-8">
+                                Compra mínima de $12500 MXN | Envíos a todo México |
+                            </span>
+                            <span className="text-[#648ACB] montserrat font-medium mx-8">
+                                Compra mínima de $12500 MXN | Envíos a todo México |
+                            </span>
+                            <span className="text-[#648ACB] montserrat font-medium mx-8">
+                                ¡Conviértete en distribuidor!
+                            </span>
+                        </div>
+                    </div>
+
+                    <style>{`
+    @keyframes marquee {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+  `}</style>
+                </div>
+
+            </div>
+
+
+        </>
+
+
     );
 };
