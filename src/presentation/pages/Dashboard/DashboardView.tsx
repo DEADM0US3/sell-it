@@ -5,6 +5,7 @@ import {CardsProduct} from '../../components/CardProduct';
 import type {LaptopDto} from '../../../contracts/laptop/laptopDto';
 import {laptopsServerApi} from '../../../infrastructure/http/features/laptopsServerApi';
 import {userServerApi} from '../../../infrastructure/http/features/userServerApi';
+import Modal from '../../components/Modal';
 
 const DashboardView: React.FC = () => {
     const [data, setData] = useState<LaptopDto[] | null>()
@@ -44,13 +45,14 @@ const DashboardView: React.FC = () => {
                 </button>
             </div>
 
-            {
-                data ? (
-                    <div className='flex items-center justify-center flex-1 relative'>
-                        <div className='absolute left-4 top-1/2 transform -translate-y-1/2 z-10'>
-                            <img className='w-[2vw] h-[2vw] cursor-pointer' src={Flecha_izquierda}
-                                 alt='Flecha izquierda'/>
-                        </div>
+        <Modal isOpen={false} />
+
+        {
+            data ? (
+                <div className='flex items-center justify-center flex-1 relative'>
+                    <div className='absolute left-4 top-1/2 transform -translate-y-1/2 z-10'>
+                        <img className='w-[2vw] h-[2vw] cursor-pointer' src={Flecha_izquierda} alt='Flecha izquierda' />
+                    </div>
                         <div ref={scrollRef} className='overflow-x-auto overflow-y-hidden scrollbar-hide flex gap-4'>
                             {data.map((item, index) => (
                                 <div key={index} className='min-w-[250px] max-w-[250px]'>
