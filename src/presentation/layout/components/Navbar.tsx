@@ -19,6 +19,15 @@ export const Navbar = () => {
     const [user, setUser] = useState<{ name: string; avatarUrl: string }>();
     const [cartCount, setCartCount] = useState(0);
 
+    const updateCartCount = () => {
+        try {
+            const items: Array<any> = JSON.parse(localStorage.getItem("cart") || "[]");
+            setCartCount(Array.isArray(items) ? items.length : 0);
+        } catch {
+            setCartCount(0);
+        }
+    };
+
     useEffect(() => {
         const checkAuth = async () => {
             try {
@@ -74,6 +83,25 @@ export const Navbar = () => {
             setCartCount(0);
         }
     }, [isAuth]);
+
+    useEffect(() => {
+        // Inicializa el count
+        updateCartCount();
+
+        // Cuando disparas window.dispatchEvent(new Event('cartUpdated'))
+        window.addEventListener("cartUpdated", updateCartCount);
+
+        // Si el carrito cambia en otra pestaña (storage event)
+        window.addEventListener("storage", (e) => {
+            if (e.key === "cart") updateCartCount();
+        });
+
+        return () => {
+            window.removeEventListener("cartUpdated", updateCartCount);
+            // Para remover el listener de storage, guardamos la función:
+            window.removeEventListener("storage", updateCartCount as any);
+        };
+    }, []);
 
     const handleLogout = async () => {
         await authServerApi.logout();
