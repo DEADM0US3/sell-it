@@ -44,10 +44,6 @@ const AppRoutes: React.FC = () => {
         },
         {
             path:'/details',
-            element:<CardDetail/>
-        },
-         {
-            path:'/view',
             element:<ProductsView/>
         }
     ];
