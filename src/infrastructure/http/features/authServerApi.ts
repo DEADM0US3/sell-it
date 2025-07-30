@@ -1,9 +1,11 @@
-  import {supabaseClient} from "../clientProvider.ts";
-  import {userServerApi} from "./userServerApi.ts";
+import {supabaseClient} from "../clientProvider.ts";
+import {userServerApi} from "./userServerApi.ts";
 
 export class authServerApi {
 
   static async login(email: string, password: string): Promise<boolean> {
+
+
     const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
 
     if (error) {

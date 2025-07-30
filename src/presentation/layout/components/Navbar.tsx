@@ -1,11 +1,28 @@
 import {Link, useNavigate} from "react-router-dom";
 import {authServerApi} from "../../../infrastructure/http/features/authServerApi.ts";
 import {useEffect, useState} from "react";
+import {userServerApi} from "../../../infrastructure/http/features/userServerApi.ts";
 
 export const Navbar = () => {
 
     const navigate = useNavigate();
     const [isAuth, setIsAuth] = useState(false);
+    const [isSeller, setIsSeller] = useState(false);
+
+    useEffect(() => {
+        const checkAuth = async () => {
+            try {
+                const userId = await userServerApi.getRole();
+                setIsSeller(userId === "seller");
+            } catch (error) {
+                console.error("Error checking authentication:", error);
+                setIsSeller(false);
+            }
+        };
+
+        checkAuth();
+
+    }, []);
 
     useEffect(() => {
         const checkAuth = async () => {
@@ -42,7 +59,7 @@ export const Navbar = () => {
                 </Link>
 
                 {
-                    isAuth ? (
+                    isSeller ? (
                         <>
                             <Link
                                 to="/dashboard"

@@ -3,6 +3,7 @@
     import type {LaptopDto} from "../../../contracts/laptop/laptopDto.ts";
     import type {LaptopCreateDto} from "../../../contracts/laptop/laptopCreateDto.ts";
     import type { LaptopUpdateDto } from "../../../contracts/laptop/laptopUpdateDto.ts";
+    import {imageServerApi} from "./imageServerApi.ts";
 
     export class laptopsServerApi extends baseServerApi {
 
@@ -19,10 +20,14 @@
             return data as LaptopDto[];
         }
 
-        static async create(item: LaptopCreateDto): Promise<LaptopDto | null> {
+        static async create(item: LaptopCreateDto, file : File): Promise<LaptopDto | null> {
 
             const supabase = supabaseClient;
             const { data, error } = await supabase.from("laptops").insert(item).select().single();
+
+            const imageUrl = await imageServerApi.uploadImage(file)
+
+            item.
 
             if (error) {
                 console.error("Error creating item:", error);

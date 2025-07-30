@@ -3,13 +3,12 @@ import {Navigate, type RouteObject, useRoutes} from 'react-router-dom';
 import {HomeRoutes} from "./pages/Home/HomeRoutes.tsx";
 import {AuthRoutes} from "./pages/Auth/AuthRoutes.tsx";
 import {Layout} from "./layout/Layout.tsx";
-import { CardDetail } from './components/CardDetails.tsx';
 import HomeView from './pages/Home/HomeView.tsx';
 import {CartRoutes} from "./pages/Cart/CartRoutes.tsx";
 import {ProductsRoutes} from "./pages/Products/ProductsRoutes.tsx";
-import {IsAuth} from "./components/isAuth.tsx";
 import {DashboardRoutes} from "./pages/Dashboard/DashboardRoutes.tsx";
 import ProductsView from './pages/Products/ProductsView.tsx';
+import {IsSeller} from "./components/isSeller.tsx";
 
 
 const AppRoutes: React.FC = () => {
@@ -22,7 +21,7 @@ const AppRoutes: React.FC = () => {
                 ...ProductsRoutes,
                 ...CartRoutes,
                 {
-                    element: <IsAuth />,
+                    element: <IsSeller/>,
                     children: [
                         ...DashboardRoutes,
                     ],

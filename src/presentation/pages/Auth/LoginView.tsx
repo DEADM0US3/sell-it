@@ -18,7 +18,7 @@ const LoginView = () => {
 
         if (response) {
 
-            navigate("/dashboard"); // o a donde desees redirigir
+            navigate("/dashboard");
         } else {
             return false;
         }

@@ -1,4 +1,4 @@
-import { CardsProduct } from '../../layout/components/CardProduct';
+
 import Logo_transparente from '../../../assets/img/Logo_transparente.png';
 import Borde_home from '../../../assets/img/Borde_home.png';
 import Flecha_izquierda from '../../../assets/img/Flecha_izquierda.png';
@@ -90,7 +90,7 @@ const HomeView: React.FC = () => {
                             <img className='w-[2vw] h-[2vw] cursor-pointer' src={Flecha_izquierda} alt='Flecha izquierda' />
                         </div>
 
-                        <div ref={scrollRef} className='overflow-x-auto overflow-y-hidden scrollbar-hide flex gap-4'>
+                        <div ref={scrollRef} className=' overflow-x-auto overflow-y-hidden scrollbar-hide flex gap-12'>
                         {
                             data && (
                                 data.map((item, index) => (
