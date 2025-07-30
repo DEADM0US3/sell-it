@@ -1,9 +1,9 @@
 // src/components/CardDetail.tsx
-import React, { useState } from 'react';
-import { Plus, Minus } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import type { LaptopDto } from '../../contracts/laptop/laptopDto.ts';
+import React, {useState} from 'react';
+import {Plus, Minus} from 'lucide-react';
+import type {LaptopDto} from '../../contracts/laptop/laptopDto.ts';
 import LaptopPlaceholder from '../../assets/img/laptop-placeholder.png';
+
 interface CardDetailProps {
     product: LaptopDto;
 }
@@ -12,7 +12,7 @@ interface CardDetailProps {
  * CardDetail
  * Componente de detalle de producto con UI profesional y UX sobresaliente.
  */
-export const CardDetail: React.FC<CardDetailProps> = ({ product }) => {
+export const CardDetail: React.FC<CardDetailProps> = ({product}) => {
     const [quantity, setQuantity] = useState(1);
 
     const handleAddToCart = () => {
@@ -23,7 +23,7 @@ export const CardDetail: React.FC<CardDetailProps> = ({ product }) => {
         if (existing) {
             existing.quantity += quantity;
         } else {
-            currentCart.push({ ...product, quantity });
+            currentCart.push({...product, quantity});
         }
 
         localStorage.setItem('cart', JSON.stringify(currentCart));
@@ -34,7 +34,8 @@ export const CardDetail: React.FC<CardDetailProps> = ({ product }) => {
     const decrement = () => setQuantity(q => Math.max(1, q - 1));
 
     return (
-        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 bg-white rounded-3xl shadow-lg overflow-hidden">
+        <div
+            className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 bg-white rounded-3xl shadow-lg overflow-hidden">
             {/* Imagen */}
             <div className="bg-gray-50 p-6 flex items-center justify-center">
                 <img
@@ -47,11 +48,11 @@ export const CardDetail: React.FC<CardDetailProps> = ({ product }) => {
             {/* Detalles */}
             <div className="p-6 flex flex-col justify-between">
                 <div>
-                    <span className="text-sm text-gray-500">{product.seller_id}</span>
-                    <h1 className="text-3xl font-bold mt-1">{product.title}</h1>
-                    <p className="text-2xl font-semibold text-gray-800 mt-3">
+                    <h1 className="text-3xl font-semibold mt-1">{product.title}</h1>
+                    <h2 className="text-2xl font-bold text-[#14479D] my-3">
                         ${product.price.toLocaleString('es-MX')} MXN
-                    </p>
+                    </h2>
+                    <p>{product.description}</p>
                 </div>
 
                 {/* Cantidad y acciones */}
@@ -65,7 +66,7 @@ export const CardDetail: React.FC<CardDetailProps> = ({ product }) => {
                                 onClick={decrement}
                                 className="p-2 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             >
-                                <Minus size={16} />
+                                <Minus size={16}/>
                             </button>
                             <span className="px-4 text-lg font-medium text-gray-900">
                 {quantity}
@@ -74,7 +75,7 @@ export const CardDetail: React.FC<CardDetailProps> = ({ product }) => {
                                 onClick={increment}
                                 className="p-2 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             >
-                                <Plus size={16} />
+                                <Plus size={16}/>
                             </button>
                         </div>
                     </div>
@@ -86,13 +87,6 @@ export const CardDetail: React.FC<CardDetailProps> = ({ product }) => {
                         >
                             Agregar al carrito
                         </button>
-                        <Link
-                            to="/checkout"
-                            onClick={handleAddToCart}
-                            className="flex-1 px-6 py-3 border border-blue-600 text-blue-600 font-semibold rounded-lg hover:bg-blue-50 transition focus:outline-none focus:ring-2 focus:ring-blue-500 text-center"
-                        >
-                            Comprar ahora
-                        </Link>
                     </div>
                 </div>
             </div>
