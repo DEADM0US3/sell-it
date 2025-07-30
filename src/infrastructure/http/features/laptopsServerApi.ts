@@ -57,7 +57,7 @@ export class laptopsServerApi extends baseServerApi {
 
 
     static async delete(id: string): Promise<boolean | null> {
-        if (await this.validateLogin()) {
+        if (!await this.validateLogin()) {
             console.error("User is not logged in.");
             return null;
         }
@@ -72,14 +72,13 @@ export class laptopsServerApi extends baseServerApi {
         return true
     }
 
-    static async update(item: LaptopUpdateDto): Promise<LaptopDto | null> {
-        if (await this.validateLogin()) {
+    static async update(item: LaptopDto): Promise<LaptopDto | null> {
+        if (!await this.validateLogin()) {
             console.error("User is not logged in.");
             return null;
         }
 
-        const supabase = supabaseClient;
-        const { data, error } = await supabase.from("laptops").update(item).eq("id", item.id).select().single();
+        const { data, error } = await supabaseClient.from("laptops").update(item).eq("id", item.id).select().single();
 
         if (error) {
             console.error("Error updating item:", error.message);
