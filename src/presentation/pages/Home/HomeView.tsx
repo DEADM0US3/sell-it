@@ -75,7 +75,7 @@ const HomeView: React.FC = () => {
 
             <div className='flex justify-center my-4 pb-[5%]'>
                 <Link to="/products" className='hidden md:block'>
-                <button className='bg-[#14489D] w-[25vw] md:w-[12vw] text-white  py-3 shadow-md hover:bg-[#123c80] transition rounded-3xl montserrat font-semibold hover:font-bold'>
+                <button className='bg-[#14489D] w-[25vw] md:w-[12vw] text-white  py-3 shadow-md transition hover:bg-[#123c80] transition rounded-3xl montserrat font-semibold transition hover:font-bold'>
                     Ir a tienda
                 </button>
                 </Link>

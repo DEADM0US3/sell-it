@@ -4,6 +4,11 @@
   font-family: "Montserrat", sans-serif !important;
 }
 
+.bg-black-opacity-20 {
+  background-color: rgba(0, 0, 0, 0.476);
+}
+
+
 @keyframes float {
       0%   { transform: translate(0, 0); }
       50%  { transform: translate(15px, -15px); }

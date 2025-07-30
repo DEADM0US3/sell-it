@@ -270,7 +270,7 @@ const DashboardView = () => {
                                     return (
                                         <div
                                             key={idx}
-                                            className="flex items-center justify-between p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100 transition"
+                                            className="flex items-center justify-between p-3 bg-gray-50 rounded-lg cursor-pointer transition hover:bg-gray-100 transition"
                                             onClick={() => {
 
                                                 const seLaptop = products.find(p => p.id == prod.id);
@@ -321,7 +321,7 @@ const DashboardView = () => {
                 return (
                   <div key={idx} className="flex flex-col items-center gap-2 flex-1">
                     <span className="text-xs font-medium text-gray-600">{formatCurrency(data.sales)}</span>
-                    <div className="w-full bg-blue-500 rounded-t-md transition-all duration-500 hover:bg-[#14489D]" style={{ height }} />
+                    <div className="w-full bg-blue-500 rounded-t-md transition-all duration-500 transition hover:bg-[#14489D]" style={{ height }} />
                     <span className="text-xs text-gray-500 font-medium">{data.month}</span>
                   </div>
                 );

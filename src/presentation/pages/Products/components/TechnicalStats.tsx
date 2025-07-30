@@ -10,7 +10,7 @@ export interface SpecItem {
 }
 
 export const SpecItemCard: React.FC<SpecItem> = ({ icon: Icon, color, label, value }) => (
-    <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+    <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg transition hover:bg-gray-100 transition-colors">
         <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${color}`}>
             <Icon className="w-6 h-6 text-gray-600" />
         </div>

@@ -197,13 +197,13 @@ export const ModalEditarLaptop: React.FC<ModalEditarLaptopProps> = ({
                                 <button
                                     type="button"
                                     onClick={onClose}
-                                    className="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded"
+                                    className="bg-gray-200 transition hover:bg-gray-300 px-4 py-2 rounded"
                                 >
                                     Cancelar
                                 </button>
                                 <button
                                     type="submit"
-                                    className="bg-[#14489D] text-white px-4 py-2 rounded hover:bg-blue-500"
+                                    className="bg-[#14489D] transition text-white px-4 py-2 rounded hover:bg-blue-500"
                                 >
                                     Guardar Cambios
                                 </button>

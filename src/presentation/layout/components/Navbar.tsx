@@ -217,17 +217,35 @@ export const Navbar = () => {
                 <div className="whitespace-nowrap overflow-hidden">
                     <div
                         className="inline-block animate-marquee"
-                        style={{ animation: "marquee 30s linear infinite" }}
+                        style={{ animation: "marquee 60s linear infinite" }}
                     >
             <span className="text-[#648ACB] montserrat font-medium mx-8">
-              Compra mínima de $12500 MXN | Envíos a todo México |
-            </span>
+                            Envíos a todo México
+                        </span>
                         <span className="text-[#648ACB] montserrat font-medium mx-8">
-              Compra mínima de $12500 MXN | Envíos a todo México |
-            </span>
+                            Compra mínima de $12500 MXN
+                        </span>
                         <span className="text-[#648ACB] montserrat font-medium mx-8">
-              ¡Conviértete en distribuidor!
-            </span>
+                            Encuentra tu laptop ideal con nosotros
+                        </span>
+                        <span className="text-[#648ACB] montserrat font-medium mx-8">
+                            Envíos a todo México
+                        </span>
+                        <span className="text-[#648ACB] montserrat font-medium mx-8">
+                            Compra mínima de $12500 MXN
+                        </span>
+                        <span className="text-[#648ACB] montserrat font-medium mx-8">
+                            Encuentra tu laptop ideal con nosotros
+                        </span>
+                        <span className="text-[#648ACB] montserrat font-medium mx-8">
+                            Envíos a todo México
+                        </span>
+                        <span className="text-[#648ACB] montserrat font-medium mx-8">
+                            Compra mínima de $12500 MXN
+                        </span>
+                        <span className="text-[#648ACB] montserrat font-medium mx-8">
+                            Encuentra tu laptop ideal con nosotros
+                        </span>
                     </div>
                 </div>
                 <style>{`
