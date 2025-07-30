@@ -65,7 +65,7 @@ const CartView: React.FC = () => {
                             <p className="text-xl font-bold">
                                 Total: ${total.toLocaleString()} MXN
                             </p>
-                            <button className="mt-4 px-6 py-2 text-white bg-blue-600 hover:bg-blue-700">
+                            <button className="mt-4 px-6 py-2 text-white bg-[#14489D] hover:bg-blue-700">
                                 Finalizar Compra
                             </button>
                         </div>

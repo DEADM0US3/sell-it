@@ -163,7 +163,8 @@ const DashboardView = () => {
                             className='p-2 rounded-lg bg-blue-500 text-white semibold cursor-pointer'
                             onClick={() => setIsOpen(true)}
                         >
-                            Publicar nueva Laptop
+                            Nuevo Producto
+                            🏷️
                         </button>
                     </div>
 
@@ -316,7 +317,7 @@ const DashboardView = () => {
                 return (
                   <div key={idx} className="flex flex-col items-center gap-2 flex-1">
                     <span className="text-xs font-medium text-gray-600">{formatCurrency(data.sales)}</span>
-                    <div className="w-full bg-blue-500 rounded-t-md transition-all duration-500 hover:bg-blue-600" style={{ height }} />
+                    <div className="w-full bg-blue-500 rounded-t-md transition-all duration-500 hover:bg-[#14489D]" style={{ height }} />
                     <span className="text-xs text-gray-500 font-medium">{data.month}</span>
                   </div>
                 );
