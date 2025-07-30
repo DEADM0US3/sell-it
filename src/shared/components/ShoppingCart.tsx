@@ -80,13 +80,6 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ isOpen, onClose }) => {
                             const lineTotal = item.price * item.quantity;
                             return (
                                 <div key={item.id} className="flex p-6 items-start space-x-4">
-                                    {item.image_url && (
-                                        <img
-                                            src={item.image_url}
-                                            alt={item.title}
-                                            className="w-20 h-20 object-cover rounded-lg border"
-                                        />
-                                    )}
                                     <div className="flex-1">
                                         {/* Título y ID */}
                                         <Link
@@ -95,7 +88,6 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ isOpen, onClose }) => {
                                         >
                                             {item.title}
                                         </Link>
-                                        <p className="text-xs text-gray-400">ID: {item.id}</p>
 
                                         {/* Resumen de specs */}
                                         <div className="mt-1 text-sm text-gray-600 space-y-0.5">
