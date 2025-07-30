@@ -27,8 +27,6 @@ export class aiPredictionsServerApi {
   }
 
 
-
-
   static async create(prediction: AiPredictionCreateDto): Promise<AiPredictionDto | null> {
     if (!prediction?.laptop_id) {
       console.warn("Missing laptop_id in prediction payload");
