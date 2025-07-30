@@ -1,9 +1,11 @@
 // src/components/CardDetail.tsx
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { Plus, Minus } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import type { LaptopDto } from '../../contracts/laptop/laptopDto.ts';
 import LaptopPlaceholder from '../../assets/img/laptop-placeholder.png';
+import Compu from "../../assets/img/Compu.png";
+import {imageServerApi} from "../../infrastructure/http/features/imageServerApi.ts";
 interface CardDetailProps {
     product: LaptopDto;
 }
@@ -12,8 +14,20 @@ interface CardDetailProps {
  * CardDetail
  * Componente de detalle de producto con UI profesional y UX sobresaliente.
  */
-export const CardDetail: React.FC<CardDetailProps> = ({ product }) => {
+export const CardDetail: React.FC<CardDetailProps> = ({product}) => {
     const [quantity, setQuantity] = useState(1);
+
+    const [imageUrl, setImageUrl] = useState<string>(Compu);
+
+    useEffect(() => {
+        const fetchImage = async () => {
+            const url = await imageServerApi.getImageUrl(product.image_url);
+            if (url) setImageUrl(url);
+        };
+
+        fetchImage();
+    }, [product?.image_url]);
+
 
     const handleAddToCart = () => {
         const currentCart: Array<LaptopDto & { quantity: number }> =
@@ -23,7 +37,7 @@ export const CardDetail: React.FC<CardDetailProps> = ({ product }) => {
         if (existing) {
             existing.quantity += quantity;
         } else {
-            currentCart.push({ ...product, quantity });
+            currentCart.push({...product, quantity});
         }
 
         localStorage.setItem('cart', JSON.stringify(currentCart));
@@ -38,7 +52,7 @@ export const CardDetail: React.FC<CardDetailProps> = ({ product }) => {
             {/* Imagen */}
             <div className="bg-gray-50 p-6 flex items-center justify-center">
                 <img
-                    src={product.image_url || LaptopPlaceholder}
+                    src={imageUrl || LaptopPlaceholder}
                     alt={product.title}
                     className="object-contain w-full h-80"
                 />
@@ -47,11 +61,11 @@ export const CardDetail: React.FC<CardDetailProps> = ({ product }) => {
             {/* Detalles */}
             <div className="p-6 flex flex-col justify-between">
                 <div>
-                    <span className="text-sm text-gray-500">{product.seller_id}</span>
-                    <h1 className="text-3xl font-bold mt-1">{product.title}</h1>
-                    <p className="text-2xl font-semibold text-gray-800 mt-3">
+                    <h1 className="text-3xl font-semibold mt-1">{product.title}</h1>
+                    <h2 className="text-2xl font-bold text-[#14479D] my-3">
                         ${product.price.toLocaleString('es-MX')} MXN
-                    </p>
+                    </h2>
+                    <p>{product.description}</p>
                 </div>
 
                 {/* Cantidad y acciones */}
@@ -65,7 +79,7 @@ export const CardDetail: React.FC<CardDetailProps> = ({ product }) => {
                                 onClick={decrement}
                                 className="p-2 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             >
-                                <Minus size={16} />
+                                <Minus size={16}/>
                             </button>
                             <span className="px-4 text-lg font-medium text-gray-900">
                 {quantity}
@@ -74,7 +88,7 @@ export const CardDetail: React.FC<CardDetailProps> = ({ product }) => {
                                 onClick={increment}
                                 className="p-2 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             >
-                                <Plus size={16} />
+                                <Plus size={16}/>
                             </button>
                         </div>
                     </div>
@@ -82,17 +96,10 @@ export const CardDetail: React.FC<CardDetailProps> = ({ product }) => {
                     <div className="flex flex-col sm:flex-row gap-4">
                         <button
                             onClick={handleAddToCart}
-                            className="flex-1 px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="flex-1 px-6 py-3 bg-[#14489D] text-white font-semibold rounded-lg hover:bg-blue-700 transition focus:outline-none focus:ring-2 focus:ring-blue-500"
                         >
                             Agregar al carrito
                         </button>
-                        <Link
-                            to="/checkout"
-                            onClick={handleAddToCart}
-                            className="flex-1 px-6 py-3 border border-blue-600 text-blue-600 font-semibold rounded-lg hover:bg-blue-50 transition focus:outline-none focus:ring-2 focus:ring-blue-500 text-center"
-                        >
-                            Comprar ahora
-                        </Link>
                     </div>
                 </div>
             </div>

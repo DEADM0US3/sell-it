@@ -15,8 +15,9 @@ import { salesServerApi } from "../../../infrastructure/http/features/salesServe
 import type { LaptopDto } from "../../../contracts/laptop/laptopDto.ts";
 import type { AiPredictionDto } from "../../../contracts/ai-prediction/ai-predictionDto.ts";
 import {authServerApi} from "../../../infrastructure/http/features/authServerApi.ts";
-import Modal from "../../components/Modal.tsx";
+import Modal from "./components/Modal.tsx";
 import type {SaleDto} from "../../../contracts/sales/salesDto.ts";
+import {ModalEditarLaptop} from "./components/ModalViewLaptop.tsx";
 
 const DashboardView = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -27,40 +28,49 @@ const DashboardView = () => {
     const [sales, setSales] = useState<SaleDto  []>([]);
     const [loading, setLoading] = useState(true);
 
+    const [showEditModal, setShowEditModal] = useState(false);
+    const [selectedLaptop, setSelectedLaptop] = useState<LaptopDto | null>(null);
+
+    const refetchLaptops = async () => {
+        await fetchData();
+    };
+
+
+    const fetchData = async () => {
+        setLoading(true);
+        try {
+            const userId = await authServerApi.getUserId();
+            if (!userId) throw new Error("Usuario no autenticado");
+
+            // Cargar productos
+            const productData = await laptopsServerApi.getByUserId(userId);
+            if (!productData) throw new Error("No se pudieron cargar los productos");
+            setProducts(productData);
+
+            // Cargar predicciones
+            const predictionData = await Promise.all(
+                productData.map(product =>
+                    aiPredictionsServerApi.getByLaptopId(product.id)
+                )
+            );
+            setPredictions(predictionData.filter((p): p is AiPredictionDto => p !== null));
+
+            // Cargar ventas del usuario (como vendedor)
+            const salesData = await salesServerApi.getBySellerId(userId);
+            if (!salesData) throw new Error("No se pudieron cargar las ventas");
+            setSales(salesData);
+
+        } catch (error) {
+            console.error("Error al obtener datos del dashboard:", error);
+            setProducts([]);
+            setPredictions([]);
+            setSales([]);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     useEffect(() => {
-        const fetchData = async () => {
-            setLoading(true);
-            try {
-                const userId = await authServerApi.getUserId();
-                if (!userId) throw new Error("Usuario no autenticado");
-
-                // Cargar productos
-                const productData = await laptopsServerApi.getByUserId(userId);
-                if (!productData) throw new Error("No se pudieron cargar los productos");
-                setProducts(productData);
-
-                // Cargar predicciones
-                const predictionData = await Promise.all(
-                    productData.map(product =>
-                        aiPredictionsServerApi.getByLaptopId(product.id)
-                    )
-                );
-                setPredictions(predictionData.filter((p): p is AiPredictionDto => p !== null));
-
-                // Cargar ventas del usuario (como vendedor)
-                const salesData = await salesServerApi.getBySellerId(userId);
-                if (!salesData) throw new Error("No se pudieron cargar las ventas");
-                setSales(salesData);
-
-            } catch (error) {
-                console.error("Error al obtener datos del dashboard:", error);
-                setProducts([]);
-                setPredictions([]);
-                setSales([]);
-            } finally {
-                setLoading(false);
-            }
-        };
 
         fetchData();
     }, []);
@@ -127,6 +137,7 @@ const DashboardView = () => {
         categoryData,
         monthlyData,
         recentProducts: products.map((product, idx) => ({
+            id: product.id,
             name: product.title || "Sin título",
             category: product.brand || "Sin marca",
             sales: product.price || 0,
@@ -159,9 +170,19 @@ const DashboardView = () => {
 
                     <Modal isOpen={isOpen} onClose={close} />
 
+                    {showEditModal && selectedLaptop && (
+                        <ModalEditarLaptop
+                            laptopToEdit={selectedLaptop}
+                            onClose={() => setShowEditModal(false)}
+                            onUpdated={refetchLaptops}
+                        />
+                    )}
+
+
                     {/* KPIs principales */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <InfoCard
+                            mainLabel=""
                             title="Producto Más Vendido"
                             Icon={TrendingUp}
                             iconColor="text-green-500"
@@ -170,6 +191,7 @@ const DashboardView = () => {
                         />
 
                         <InfoCard
+                            mainLabel=""
                             title="Producto Menos Vendido"
                             Icon={TrendingDown}
                             iconColor="text-red-500"
@@ -242,10 +264,24 @@ const DashboardView = () => {
                                 {salesData.recentProducts.map((prod, idx) => {
                                     const Icon = prod.icon;
                                     return (
-                                        <div key={idx} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                        <div
+                                            key={idx}
+                                            className="flex items-center justify-between p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100 transition"
+                                            onClick={() => {
+
+                                                const seLaptop = products.find(p => p.id == prod.id);
+
+                                                if (seLaptop) {
+                                                    setSelectedLaptop(seLaptop);
+                                                    setShowEditModal(true);
+                                                }
+
+                                            }}
+                                        >
                                             <div className="flex items-center gap-3">
-                                                <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
-                                                    <Icon className="w-4 h-4 text-gray-600" />
+                                                <div
+                                                    className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
+                                                    <Icon className="w-4 h-4 text-gray-600"/>
                                                 </div>
                                                 <div>
                                                     <p className="font-medium text-sm text-gray-900">{prod.name}</p>
@@ -257,9 +293,9 @@ const DashboardView = () => {
                             prod.trend === 'up' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
                         }`}>{formatCurrency(prod.sales)}</span>
                                                 {prod.trend === 'up' ? (
-                                                    <TrendingUp className="w-4 h-4 text-green-500" />
+                                                    <TrendingUp className="w-4 h-4 text-green-500"/>
                                                 ) : (
-                                                    <TrendingDown className="w-4 h-4 text-red-500" />
+                                                    <TrendingDown className="w-4 h-4 text-red-500"/>
                                                 )}
                                             </div>
                                         </div>
@@ -281,7 +317,7 @@ const DashboardView = () => {
                 return (
                   <div key={idx} className="flex flex-col items-center gap-2 flex-1">
                     <span className="text-xs font-medium text-gray-600">{formatCurrency(data.sales)}</span>
-                    <div className="w-full bg-blue-500 rounded-t-md transition-all duration-500 hover:bg-blue-600" style={{ height }} />
+                    <div className="w-full bg-blue-500 rounded-t-md transition-all duration-500 hover:bg-[#14489D]" style={{ height }} />
                     <span className="text-xs text-gray-500 font-medium">{data.month}</span>
                   </div>
                 );
