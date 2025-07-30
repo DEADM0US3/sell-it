@@ -66,7 +66,7 @@
         }
 
         static async getByUserId(userId: string): Promise<LaptopDto[] | null> {
-            if (await this.validateLogin()) {
+            if (!(await this.validateLogin())) {
                 console.error("User is not logged in.");
                 return null;
             }

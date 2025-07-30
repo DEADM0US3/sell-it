@@ -1,4 +1,4 @@
-import { CardsProduct } from '../../layout/components/CardProduct';
+import { CardsProduct } from '../../components/CardProduct';
 import Logo_transparente from '../../../assets/img/Logo_transparente.png';
 import Borde_home from '../../../assets/img/Borde_home.png';
 import Flecha_izquierda from '../../../assets/img/Flecha_izquierda.png';
@@ -26,6 +26,7 @@ const HomeView: React.FC = () => {
     useEffect(() => {
         fetchData()
     }, [])
+    
     const scrollRef = useRef<HTMLDivElement>(null);
 
         const scrollRight = () => {
@@ -84,27 +85,26 @@ const HomeView: React.FC = () => {
                         </button>
                     </div>
                 </div>
-                <div className='flex items-center justify-center flex-1 relative'>
-                    <div className='absolute left-4 top-1/2 transform -translate-y-1/2 z-10'>
-                    <img className='w-[2vw] h-[2vw] cursor-pointer' src={Flecha_izquierda} alt='Flecha izquierda' />
-                    </div>
+                    <div className='flex items-center justify-center flex-1 relative'>
+                        <div className='absolute left-4 top-1/2 transform -translate-y-1/2 z-10'>
+                            <img className='w-[2vw] h-[2vw] cursor-pointer' src={Flecha_izquierda} alt='Flecha izquierda' />
+                        </div>
 
-                    <div ref={scrollRef} className='overflow-x-auto overflow-y-hidden scrollbar-hide flex gap-4'>
-                    {
-                        data && (
-                            data.map((item, index) => (
-                                <div key={index} className='min-w-[250px] max-w-[250px]'>
-                                <CardsProduct laptop={item}/>
-                                </div>
-                            ))
-                        )
-                    }
+                        <div ref={scrollRef} className='overflow-x-auto overflow-y-hidden scrollbar-hide flex gap-4'>
+                        {
+                            data && (
+                                data.map((item, index) => (
+                                    <div key={index} className='min-w-[250px] max-w-[250px]'>
+                                    <CardsProduct laptop={item}/>
+                                    </div>
+                                ))
+                            )
+                        }
+                        </div>
+                        <div className='absolute right-4 top-1/2 transform -translate-y-1/2 z-10'>
+                            <img className='w-[2vw] h-[2vw] cursor-pointer '  onClick={scrollRight} src={Flecha_derecha} alt='Flecha derecha'  />
+                        </div>
                     </div>
-                    <div className='absolute right-4 top-1/2 transform -translate-y-1/2 z-10'>
-                    <img className='w-[2vw] h-[2vw] cursor-pointer '  onClick={scrollRight} src={Flecha_derecha} alt='Flecha derecha'  />
-                    </div>
-
-                </div>
                 </div>
                 <div className='relative w-full h-[80vh]'>
             <img
