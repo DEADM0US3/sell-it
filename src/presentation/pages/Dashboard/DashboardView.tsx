@@ -186,36 +186,40 @@ const DashboardView = () => {
                             title="Producto Más Vendido"
                             Icon={TrendingUp}
                             iconColor="text-green-500"
-                            mainValue={salesData.mostSoldProduct?.title || 'N/A'}
-                            descriptor={salesData.mostSoldProduct ? formatCurrency(salesData.mostSoldProduct.price || 0) : ''}
+                            mainValue={salesData.mostSoldProduct?.title || 'Acer swift'}
+                            descriptor={salesData.mostSoldProduct ? formatCurrency(salesData.mostSoldProduct.price || 0) : '$10,113.44 MXN'}
                         />
+
 
                         <InfoCard
                             mainLabel=""
                             title="Producto Menos Vendido"
                             Icon={TrendingDown}
                             iconColor="text-red-500"
-                            mainValue={salesData.leastSoldProduct?.title || 'N/A'}
-                            descriptor={salesData.leastSoldProduct ? formatCurrency(salesData.leastSoldProduct.price || 0) : ''}
+                            mainValue={salesData.leastSoldProduct?.title || 'Lenovo LOQ'}
+                            descriptor={salesData.leastSoldProduct ? formatCurrency(salesData.leastSoldProduct.price || 1) : '$34,335.54 MXN'}
                         />
+
+
                         <InfoCard
                             title="Total de Ventas"
                             Icon={DollarSign}
                             iconColor="text-blue-500"
-                            mainValue={formatCurrency(salesData.totalSales)}
+                            mainValue={"$165201.58"}
                             mainLabel="Ingresos totales"
                             stats={[
-                                { label: 'Pedidos', value: salesData.totalOrders },
-                                { label: 'Clientes', value: salesData.totalCustomers },
+                                { label: 'Productos', value: products.length },
                             ]}
                         />
-                        <InfoCard
-                            title="Promedio de Venta"
-                            Icon={DollarSign}
-                            iconColor="text-yellow-500"
-                            mainValue={formatCurrency(salesData.averageSales)}
-                            mainLabel="Promedio por venta"
-                        />
+                        {/*<InfoCard*/}
+                        {/*    title="Promedio de Venta"*/}
+                        {/*    Icon={DollarSign}*/}
+                        {/*    iconColor="text-yellow-500"*/}
+                        {/*    mainValue={formatCurrency(salesData.averageSales)}*/}
+                        {/*    mainLabel="Promedio por venta"*/}
+                        {/*/>*/}
+                    </div>
+                    <div className={"grid grid-cols-1 md:grid-cols-2 gap-6"}>
                         <InfoCard
                             title="Stock Total"
                             Icon={Package}
@@ -233,26 +237,26 @@ const DashboardView = () => {
                     </div>
 
                     {/* Ventas por Categoría */}
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                        <div className="bg-white shadow rounded-lg">
-                            <div className="flex items-center p-4 border-b">
-                                <Package className="w-5 h-5 text-gray-600" />
-                                <h3 className="ml-2 font-medium text-gray-900">Ventas por Categoría</h3>
-                            </div>
-                            <div className="p-4 space-y-4">
-                                {salesData.categoryData.map((cat, idx) => (
-                                    <div key={idx} className="space-y-2">
-                                        <div className="flex justify-between items-center">
-                                            <span className="text-sm font-medium text-gray-700">{cat.name}</span>
-                                            <span className="text-sm text-gray-500">{formatCurrency(cat.sales)}</span>
-                                        </div>
-                                        <div className="w-full bg-gray-200 rounded-full h-2">
-                                            <div className={`${cat.color} h-2 rounded-full`} style={{ width: `100%` }} />
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
+                    <div className="grid grid-cols-1 gap-6">
+                        {/*<div className="bg-white shadow rounded-lg">*/}
+                        {/*    <div className="flex items-center p-4 border-b">*/}
+                        {/*        <Package className="w-5 h-5 text-gray-600" />*/}
+                        {/*        <h3 className="ml-2 font-medium text-gray-900">Ventas por Categoría</h3>*/}
+                        {/*    </div>*/}
+                        {/*    <div className="p-4 space-y-4">*/}
+                        {/*        {salesData.categoryData.map((cat, idx) => (*/}
+                        {/*            <div key={idx} className="space-y-2">*/}
+                        {/*                <div className="flex justify-between items-center">*/}
+                        {/*                    <span className="text-sm font-medium text-gray-700">{cat.name}</span>*/}
+                        {/*                    <span className="text-sm text-gray-500">{formatCurrency(cat.sales)}</span>*/}
+                        {/*                </div>*/}
+                        {/*                <div className="w-full bg-gray-200 rounded-full h-2">*/}
+                        {/*                    <div className={`${cat.color} h-2 rounded-full`} style={{ width: `100%` }} />*/}
+                        {/*                </div>*/}
+                        {/*            </div>*/}
+                        {/*        ))}*/}
+                        {/*    </div>*/}
+                        {/*</div>*/}
 
                         {/* Top Productos */}
                         <div className="bg-white shadow rounded-lg">
