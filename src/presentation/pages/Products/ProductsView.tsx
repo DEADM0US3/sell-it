@@ -1,84 +1,78 @@
+// src/views/ProductsView.tsx
 import React, { useEffect, useState } from 'react';
 import BeginContainerStyle from "../../components/BeginContainerStyle.tsx";
-import { CardDetail } from './components/CardDetails.tsx';
-import { laptopsServerApi } from "../../../infrastructure/http/features/laptopsServerApi.ts";
 import { useParams } from "react-router-dom";
+import { laptopsServerApi } from "../../../infrastructure/http/features/laptopsServerApi.ts";
 import type { LaptopDto } from "../../../contracts/laptop/laptopDto.ts";
-import type {AiPredictionDto} from "../../../contracts/ai-prediction/ai-predictionDto.ts";
-import {aiPredictionsServerApi} from "../../../infrastructure/http/features/ai-predictionsServerApi.ts";
+import {CardDetail} from "../../components/CardDetails.tsx";
 
 const ProductsView: React.FC = () => {
-
     const { id } = useParams<{ id: string }>();
-
-    const [laptop, setLaptop] = useState<LaptopDto | null>(null);
-    const [prediction, setPrediction] = useState<AiPredictionDto | null>(null);
-
-    useEffect(() => {
-        const fetchLaptop = async () => {
-            if (id) {
-                try {
-                    const fetchedLaptop = await laptopsServerApi.getById(id);
-                    setLaptop(fetchedLaptop);
-                } catch (error) {
-                    console.error("Error fetching laptop:", error);
-                }
-            }
-        };
-
-        fetchLaptop();
-    }, [id]);
+    const [product, setProduct] = useState<LaptopDto | null>(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const fetchLaptop = async () => {
-            if (id) {
-                try {
-                    const fetchedLaptop = await aiPredictionsServerApi.getByLaptopId(id);
-
-                    setPrediction(fetchedLaptop);
-                } catch (error) {
-                    console.error("Error fetching laptop:", error);
-                }
+        (async () => {
+            if (!id) return;
+            setLoading(true);
+            try {
+                const data = await laptopsServerApi.getById(id);
+                setProduct(data);
+            } catch (error) {
+                console.error("Error fetching product data:", error);
+            } finally {
+                setLoading(false);
             }
-        };
-
-        fetchLaptop();
+        })();
     }, [id]);
+
+    if (loading) {
+        return (
+            <BeginContainerStyle>
+                <div className="text-center py-20 text-gray-500">Cargando producto...</div>
+            </BeginContainerStyle>
+        );
+    }
+
+    if (!product) {
+        return (
+            <BeginContainerStyle>
+                <div className="text-center py-20 text-red-500">Producto no encontrado.</div>
+            </BeginContainerStyle>
+        );
+    }
 
     return (
         <BeginContainerStyle>
-            <div className="flex justify-between items-center px-40 py-5">
-                <CardDetail laptop={laptop} />
+            {/* Card principal */}
+            <div className="flex flex-col md:flex-row gap-8 px-6 md:px-40 py-8">
+                <CardDetail product={product} />
             </div>
 
-            {laptop ? (
-                <div className='w-[90vw] md:w-[60vw] my-[10vh] mx-auto flex flex-col items-center md:items-start text-[#14479D]'>
-                    <h2 className='text-left w-full text-2xl font-semibold'>
-                        {laptop.title}
-                    </h2>
-                    <p className="text-sm text-gray-500 mb-4">{laptop.brand} - {laptop.cpu}</p>
-                    <p className='text-center md:text-justify w-full'>
-                        {laptop.description}
-                    </p>
-
-                    {prediction && (
-                        <div className="mt-10 w-full bg-[#F3F8FF] border border-[#B3D4FC] rounded-xl p-6 shadow-md">
-                            <h3 className="text-xl font-bold text-[#21519F] mb-4">Analisis de producto con IA</h3>
-                            <p><span className="font-semibold">Gama estimada:</span> <span className="capitalize">{prediction.gama_label}</span></p>
-                            <p><span className="font-semibold">Índice de precio/rendimiento:</span> {prediction.predicted_priceperformance.toFixed(2)}</p>
-                            <p>
-                                <span className="font-semibold">¿Vale la pena por su precio?</span>{' '}
-                                <span className={prediction.priceperformance_label === 'yes' ? 'text-green-600 font-semibold' : 'text-red-600 font-semibold'}>
-                        {prediction.priceperformance_label === 'yes' ? 'Sí' : 'No'}
-                    </span>
-                            </p>
-                        </div>
-                    )}
+            {/* Especificaciones y descripción */}
+            <div className="max-w-3xl mx-auto my-12 text-gray-900 space-y-6">
+                <h2 className="text-2xl font-semibold">
+                    Especificaciones
+                </h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+                    <div><span className="font-medium">Brand:</span> {product.brand}</div>
+                    <div><span className="font-medium">Model:</span> {product.model}</div>
+                    <div><span className="font-medium">CPU:</span> {product.cpu}</div>
+                    <div><span className="font-medium">GPU:</span> {product.gpu}</div>
+                    <div><span className="font-medium">RAM:</span> {product.ram_gb} GB</div>
+                    <div><span className="font-medium">Storage:</span> {product.storage_gb} GB ({product.storage_type})</div>
+                    <div><span className="font-medium">Screen:</span> {product.screen_size}" {product.touch_support ? 'Táctil' : 'No táctil'}</div>
+                    <div><span className="font-medium">Battery life:</span> {product.battery_life_hours} h</div>
+                    <div><span className="font-medium">Condition:</span> {product.condition}</div>
+                    <div><span className="font-medium">Creado:</span> {new Date(product.created_at).toLocaleDateString()}</div>
+                    <div><span className="font-medium">Actualizado:</span> {new Date(product.updated_at).toLocaleDateString()}</div>
                 </div>
-            ) : (
-                <div className="w-full text-center mt-10 text-gray-500">Cargando detalles de la laptop...</div>
-            )}
 
+                <div className="mt-8">
+                    <h2 className="text-2xl font-semibold">Descripción</h2>
+                    <p className="mt-2 text-gray-700">{product.description}</p>
+                </div>
+            </div>
         </BeginContainerStyle>
     );
 };
