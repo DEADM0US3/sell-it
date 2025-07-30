@@ -31,7 +31,7 @@ export const CardsProduct: React.FC<CardProductProps> = ({ laptop }) => {
                 <img src={imageUrl} alt={laptop.title} className="w-full object-cover rounded" />
             </div>
 
-            <div className="z-1 bg-[#F3F3F3] rounded-m md:w-[14vw] absolute bottom-0 w-[40vw] h-[29vh] md:h-[28vh] shadow-2xl">
+            <div className="z-1 bg-[#F3F3F3] rounded-2xl md:w-[14vw] absolute bottom-0 w-[40vw] h-[29vh] md:h-[28vh] mb-4 shadow-lg">
                 <div className="md:py-[6vh] py-[10vh] mx-[1vw]">
                     <h2 className="font-semibold text-xs md:pt-[3vh] text-[#1E4E9C] mt-2 h-[10vh] overflow-clip">
                         {laptop.title}
