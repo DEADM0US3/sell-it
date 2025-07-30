@@ -4,12 +4,12 @@ import Flecha_derecha from '../../../assets/img/Flecha_derecha.png'
 import { CardsProduct } from '../../components/CardProduct';
 import type { LaptopDto } from '../../../contracts/laptop/laptopDto';
 import { laptopsServerApi } from '../../../infrastructure/http/features/laptopsServerApi';
-import { authServerApi } from '../../../infrastructure/http/features/authServerApi';
 import { userServerApi } from '../../../infrastructure/http/features/userServerApi';
 import Modal from '../../components/Modal';
 
 const DashboardView: React.FC = () => {
     const [data, setData] = useState<LaptopDto[] | null>()
+    const [isOpen, setIsOpen] = useState(false)
     const scrollRef = useRef<HTMLDivElement>(null);
 
     const scrollRight = () => {
@@ -33,6 +33,10 @@ const DashboardView: React.FC = () => {
         }
     };
 
+    const close = () => {
+        setIsOpen(false)
+    }
+
     useEffect(() => {
         fetchData()
     }, [])
@@ -41,10 +45,10 @@ const DashboardView: React.FC = () => {
     return(
     <>
     <div className='w-full flex justify-end py-4 px-8'>
-        <button className='p-2 rounded-lg bg-blue-500 text-white semibold cursor-pointer'>Publicar nueva Laptop</button>
+        <button className='p-2 rounded-lg bg-blue-500 text-white semibold cursor-pointer' onClick={() => setIsOpen(true)}>Publicar nueva Laptop</button>
     </div>
 
-        <Modal isOpen={true} />
+        <Modal isOpen={isOpen} onClose={close}/>
 
         {
             data ? (
