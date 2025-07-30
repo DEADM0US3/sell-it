@@ -68,8 +68,8 @@ const SuccessPaymentView: React.FC = () => {
                     to="/"
                     className={
                         (isSuccess
-                            ? "bg-[#14489D] hover:bg-blue-700"
-                            : "bg-gray-300 hover:bg-gray-400") +
+                            ? "bg-[#14489D] transition hover:bg-blue-700"
+                            : "bg-gray-300 transition hover:bg-gray-400") +
                         " inline-block text-white font-semibold py-3 px-6 rounded-full transition"
                     }
                 >

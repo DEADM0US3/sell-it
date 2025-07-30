@@ -383,7 +383,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title }) => {
                     <button
                         type="button"
                         onClick={handleSubmit}
-                        className="inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-green-600 text-base leading-6 font-medium text-white shadow-sm hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition ease-in-out duration-150 sm:text-sm sm:leading-5"
+                        className="inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-green-600 text-base leading-6 font-medium text-white shadow-sm transition hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition ease-in-out duration-150 sm:text-sm sm:leading-5"
                     >
                         Aceptar
                     </button>
@@ -392,7 +392,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title }) => {
                     <button
                         type="button"
                         onClick={onClose}
-                        className="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-white text-base leading-6 font-medium text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-300 transition ease-in-out duration-150 sm:text-sm sm:leading-5"
+                        className="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-white text-base leading-6 font-medium text-gray-700 shadow-sm transition hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-300 transition ease-in-out duration-150 sm:text-sm sm:leading-5"
                     >
                         Cancelar
                     </button>

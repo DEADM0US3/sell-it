@@ -97,7 +97,7 @@ const RegisterView = () => {
                             <button
                                 type="button"
                                 onClick={() => navigate("/login")}
-                                className="border-2 border-[#1E3865] absolute bottom-10 right-10 text-[#1E3865] px-6 py-2 rounded-md hover:bg-[#f0f4ff] transition"
+                                className="border-2 border-[#1E3865] absolute bottom-10 right-10 text-[#1E3865] px-6 py-2 rounded-md transition hover:bg-[#f0f4ff] transition"
                             >
                                 Iniciar sesión
                             </button>

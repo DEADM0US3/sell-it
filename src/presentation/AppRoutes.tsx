@@ -9,6 +9,7 @@ import {ProductsRoutes} from "./pages/Products/ProductsRoutes.tsx";
 import {DashboardRoutes} from "./pages/Dashboard/DashboardRoutes.tsx";
 import ProductsView from './pages/Products/ProductsView.tsx';
 import {IsSeller} from "./components/isSeller.tsx";
+import Resultados from './pages/Products/Resultados.tsx';
 
 
 const AppRoutes: React.FC = () => {
@@ -44,6 +45,10 @@ const AppRoutes: React.FC = () => {
         {
             path:'/details',
             element:<ProductsView/>
+        },
+        {
+            path:'/resultados',
+            element:<Resultados/>,
         }
     ];
 

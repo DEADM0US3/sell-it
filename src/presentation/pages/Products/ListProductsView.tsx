@@ -1,15 +1,13 @@
 import React from 'react';
-import BeginContainerStyle from "../../components/BeginContainerStyle.tsx";
-import Laptop from "../../../assets/Laptop.png";
-import Mine from "../../../assets/Mine.png";
 import Borde_home from '../../../assets/img/Borde_home.png';
-
 import { CardsProduct } from "../../components/CardProduct.tsx";
 import { laptopsServerApi } from "../../../infrastructure/http/features/laptopsServerApi.ts";
 import type { LaptopDto } from "../../../contracts/laptop/laptopDto.ts";
 import { aiPredictionsServerApi } from '../../../infrastructure/http/features/ai-predictionsServerApi.ts';
 import Logo_transparente from '../../../assets/img/logo_01.png';
 import Laptop_home from '../../../assets/img/36ce44f3-5765-40b3-b2c2-6f6179579726.png'
+import { useState } from 'react';
+import ModalPreguntas from '../../components/ModalPreguntas.tsx';
 
 const ListProductsView: React.FC = () => {
 
@@ -53,6 +51,7 @@ const ListProductsView: React.FC = () => {
     const gamaAlta = laptops.filter((l) => l.gama === 'alta');
     const gamaMedia = laptops.filter((l) => l.gama === 'media');
     const gamaBaja = laptops.filter((l) => l.gama === 'baja');
+    const [mostrarModal, setMostrarModal] = useState(false)
 
 
     return (
@@ -78,6 +77,11 @@ const ListProductsView: React.FC = () => {
                 </div>
             </div>
 
+            <button onClick={() => setMostrarModal(true)} className="bg-[#14489D] text-white text-xl mt-6 px-4 font-medium hover:font-bold py-2 rounded-full flex items-center justify-center mx-auto mb-10 montserrat transition hover:bg-[#10397d] transition">
+                Buscar mi laptop ideal
+            </button>
+
+            {mostrarModal && <ModalPreguntas onClose={() => setMostrarModal(false)} />}
             <div className="px-4 md:px-40 py-20 w-full font-semibold text-center md:text-left">
                 <h2 className="text-4xl mb-10 montserrat">Laptops de gama alta</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 place-items-center md:px-28">

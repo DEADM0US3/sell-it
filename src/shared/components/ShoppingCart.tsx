@@ -64,7 +64,7 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ isOpen, onClose }) => {
                 {/* Header */}
                 <header className="flex items-center justify-between p-6 border-b">
                     <h2 className="text-2xl font-semibold text-gray-900">Tu carrito</h2>
-                    <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
+                    <button onClick={onClose} className="text-gray-500 transition hover:text-gray-700">
                         <X size={24} />
                     </button>
                 </header>
@@ -91,7 +91,7 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ isOpen, onClose }) => {
                                         {/* Título y ID */}
                                         <Link
                                             to={`/product/${item.id}`}
-                                            className="block text-lg font-medium text-gray-900 hover:underline"
+                                            className="block text-lg font-medium text-gray-900 transition hover:underline"
                                         >
                                             {item.title}
                                         </Link>
@@ -119,7 +119,7 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ isOpen, onClose }) => {
                                         <div className="mt-3 flex items-center space-x-2">
                                             <button
                                                 onClick={() => handleQuantityChange(item.id, -1)}
-                                                className="p-1 border rounded-md text-gray-600 hover:bg-gray-100"
+                                                className="p-1 border rounded-md text-gray-600 transition hover:bg-gray-100"
                                                 aria-label="Disminuir cantidad"
                                             >
                                                 <Minus size={16} />
@@ -129,14 +129,14 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ isOpen, onClose }) => {
                       </span>
                                             <button
                                                 onClick={() => handleQuantityChange(item.id, +1)}
-                                                className="p-1 border rounded-md text-gray-600 hover:bg-gray-100"
+                                                className="p-1 border rounded-md text-gray-600 transition hover:bg-gray-100"
                                                 aria-label="Aumentar cantidad"
                                             >
                                                 <Plus size={16} />
                                             </button>
                                             <button
                                                 onClick={() => handleRemove(item.id)}
-                                                className="ml-auto text-red-500 hover:text-red-700"
+                                                className="ml-auto text-red-500 transition hover:text-red-700"
                                                 aria-label="Eliminar producto"
                                             >
                                                 <Trash2 size={18} />
@@ -161,14 +161,14 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ isOpen, onClose }) => {
                         <div className="flex space-x-3">
                             <button
                                 onClick={handleClear}
-                                className="flex-1 py-3 bg-red-100 text-red-600 font-medium rounded-lg hover:bg-red-200 transition"
+                                className="flex-1 py-3 bg-red-100 text-red-600 font-medium rounded-lg transition hover:bg-red-200 transition"
                             >
                                 Vaciar carrito
                             </button>
                             <Link
                                 to="/products/checkout"
                                 onClick={onClose}
-                                className="flex-1 py-3 bg-blue-700 text-white font-medium rounded-lg hover:bg-blue-800 transition text-center"
+                                className="flex-1 py-3 bg-blue-700 text-white font-medium rounded-lg transition hover:bg-blue-800 transition text-center"
                             >
                                 Continuar al pago
                             </Link>

@@ -41,13 +41,13 @@ export const CardDetail = ({ laptop }: CardDetailProps) => {
                             <div className='flex flex-col'>
                                 <div>
                                     <button
-                                        className="bg-white border-slate-300 border text-[#21519F] px-4 py-2 rounded-full w-[27vw] font-semibold hover:bg-gray-100 transition">
+                                        className="bg-white border-slate-300 border text-[#21519F] px-4 py-2 rounded-full w-[27vw] font-semibold transition hover:bg-gray-100 transition">
                                         Agregar al carrito
                                     </button>
                                 </div>
                                 <div>
                                     <button
-                                        className="border border-slate-300 mt-4 text-white px-4 py-2 rounded-full w-[27vw] font-semibold hover:bg-white hover:text-[#14489D] transition">
+                                        className="border border-slate-300 mt-4 text-white px-4 py-2 rounded-full w-[27vw] font-semibold transition hover:bg-white transition hover:text-[#14489D] transition">
                                         Comprar ahora
                                     </button>
                                 </div>

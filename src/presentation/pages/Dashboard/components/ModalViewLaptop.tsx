@@ -266,13 +266,13 @@ export const ModalEditarLaptop: React.FC<ModalEditarLaptopProps> = ({
                     <div className="mt-6 flex justify-end gap-2">
                         <button
                             onClick={onClose}
-                            className="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded"
+                            className="bg-gray-200 transition hover:bg-gray-300 px-4 py-2 rounded"
                         >
                             Cancelar
                         </button>
                         <button
                             onClick={handleUpdate}
-                            className="bg-[#14489D] text-white px-4 py-2 rounded hover:bg-blue-500"
+                            className="bg-[#14489D] text-white px-4 py-2 rounded transition hover:bg-blue-500"
                         >
                             Guardar Cambios
                         </button>

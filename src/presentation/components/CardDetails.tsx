@@ -77,7 +77,7 @@ export const CardDetail: React.FC<CardDetailProps> = ({product}) => {
                         <div className="inline-flex items-center border border-gray-300 rounded-lg overflow-hidden">
                             <button
                                 onClick={decrement}
-                                className="p-2 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                className="p-2 transition hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             >
                                 <Minus size={16}/>
                             </button>
@@ -86,7 +86,7 @@ export const CardDetail: React.FC<CardDetailProps> = ({product}) => {
               </span>
                             <button
                                 onClick={increment}
-                                className="p-2 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                className="p-2 transition hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             >
                                 <Plus size={16}/>
                             </button>
@@ -96,7 +96,7 @@ export const CardDetail: React.FC<CardDetailProps> = ({product}) => {
                     <div className="flex flex-col sm:flex-row gap-4">
                         <button
                             onClick={handleAddToCart}
-                            className="flex-1 px-6 py-3 bg-[#14489D] text-white font-semibold rounded-lg hover:bg-blue-700 transition focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="flex-1 px-6 py-3 bg-[#14489D] text-white font-semibold rounded-lg transition hover:bg-blue-700 transition focus:outline-none focus:ring-2 focus:ring-blue-500"
                         >
                             Agregar al carrito
                         </button>

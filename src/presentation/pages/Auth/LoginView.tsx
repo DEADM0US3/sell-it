@@ -76,14 +76,14 @@ const LoginView = () => {
                     <div className="flex gap-4 mt-6">
                         <button
                             type="submit"
-                            className="bg-[#1E3865] text-white px-6 py-2 rounded-md shadow-md hover:bg-[#172c50] transition"
+                            className="bg-[#1E3865] text-white px-6 py-2 rounded-md shadow-md transition hover:bg-[#172c50] transition"
                         >
                             Iniciar sesión
                         </button>
                         <button
                             type="button"
                             onClick={() => navigate("/register")}
-                            className="border-2 bg-white border-[#1E3865] text-[#1E3865] px-6 py-2 rounded-md hover:bg-[#f0f4ff] transition"
+                            className="border-2 bg-white border-[#1E3865] text-[#1E3865] px-6 py-2 rounded-md transition hover:bg-[#f0f4ff] transition"
                         >
                             Registrar
                         </button>
