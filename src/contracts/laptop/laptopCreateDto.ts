@@ -16,5 +16,5 @@ export interface LaptopCreateDto {
     description: string;
     price: number;
     stock: number;
-    image_url: File | null;
+    image_url: string | null;
 }

@@ -161,6 +161,7 @@ const DashboardView = () => {
                     {/* KPIs principales */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <InfoCard
+                            mainLabel=""
                             title="Producto Más Vendido"
                             Icon={TrendingUp}
                             iconColor="text-green-500"
@@ -169,6 +170,7 @@ const DashboardView = () => {
                         />
 
                         <InfoCard
+                            mainLabel=""
                             title="Producto Menos Vendido"
                             Icon={TrendingDown}
                             iconColor="text-red-500"

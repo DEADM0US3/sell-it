@@ -1,9 +1,11 @@
 // src/components/CardDetail.tsx
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { Plus, Minus } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import type { LaptopDto } from '../../contracts/laptop/laptopDto.ts';
 import LaptopPlaceholder from '../../assets/img/laptop-placeholder.png';
+import Compu from "../../assets/img/Compu.png";
+import {imageServerApi} from "../../infrastructure/http/features/imageServerApi.ts";
 interface CardDetailProps {
     product: LaptopDto;
 }
@@ -14,6 +16,18 @@ interface CardDetailProps {
  */
 export const CardDetail: React.FC<CardDetailProps> = ({ product }) => {
     const [quantity, setQuantity] = useState(1);
+
+    const [imageUrl, setImageUrl] = useState<string>(Compu);
+
+    useEffect(() => {
+        const fetchImage = async () => {
+            const url = await imageServerApi.getImageUrl(product.image_url);
+            if (url) setImageUrl(url);
+        };
+
+        fetchImage();
+    }, [product?.image_url]);
+
 
     const handleAddToCart = () => {
         const currentCart: Array<LaptopDto & { quantity: number }> =
@@ -38,7 +52,7 @@ export const CardDetail: React.FC<CardDetailProps> = ({ product }) => {
             {/* Imagen */}
             <div className="bg-gray-50 p-6 flex items-center justify-center">
                 <img
-                    src={product.image_url || LaptopPlaceholder}
+                    src={imageUrl || LaptopPlaceholder}
                     alt={product.title}
                     className="object-contain w-full h-80"
                 />
