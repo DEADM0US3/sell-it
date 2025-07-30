@@ -6,7 +6,7 @@ export interface LaptopCreateDto {
     cpu: string;
     ram_gb: number;
     storage_gb: number;
-    storage_type: 'HDD' | 'SSD' | 'NVMe' | 'eMMC';
+    storage_type:  'SSD' | 'eMMC';
     gpu: string;
     stock: number;
     screen_size: number;
@@ -15,6 +15,5 @@ export interface LaptopCreateDto {
     condition: 'new' | 'used' | 'refurbished';
     description: string;
     price: number;
-    stock: number;
-    image_url: string | null;
+    image_url: File | null;
 }

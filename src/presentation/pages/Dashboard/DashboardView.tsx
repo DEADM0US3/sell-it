@@ -163,7 +163,8 @@ const DashboardView = () => {
                             className='p-2 rounded-lg bg-blue-500 text-white semibold cursor-pointer'
                             onClick={() => setIsOpen(true)}
                         >
-                            Publicar nueva Laptop
+                            Nuevo Producto
+                            🏷️
                         </button>
                     </div>
 

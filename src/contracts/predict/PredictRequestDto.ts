@@ -1,4 +1,5 @@
 export interface PredictRequestDto {
+    Model: string
     status: 'New' | 'Refurbished';
     brand: string;
     cpu: string;
