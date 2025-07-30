@@ -6,12 +6,12 @@
 
 @keyframes float {
       0%   { transform: translate(0, 0); }
-      50%  { transform: translate(12px, -10px); }
+      50%  { transform: translate(15px, -15px); }
       100% { transform: translate(0, 0); }
     }
 
     .float-smooth {
-      animation: float 3s ease-in-out infinite;
+      animation: float 2.5s ease-in-out infinite;
     }
 /* @theme inline {
   --font-inter: 'Open Sans', sans-serif;

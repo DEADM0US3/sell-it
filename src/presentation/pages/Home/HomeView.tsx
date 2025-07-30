@@ -69,7 +69,7 @@ const HomeView: React.FC = () => {
             </div>
 
             <div className='bg-[#14479D] w-full h-[10vh] mt-[2vh] flex items-center justify-center'>
-                <p className='text-white text-center font-semibold text-2xl'>
+                <p className='text-[#E4E9F5] text-center font-semibold text-3xl md:text-5xl montserrat'>
                     Conoce todas nuestras promociones
                 </p>
             </div>
