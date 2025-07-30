@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import PC from "../../../assets/img/PC.png";
 import logo from "../../../assets/img/logo.png";
 import {authServerApi} from "../../../infrastructure/http/features/authServerApi.ts";
+import { profileServerApi } from "../../../infrastructure/http/features/profileServerApi.ts";
+import type { ProfileCreateDto } from "../../../contracts/profile/profileCreateDto.ts";
 
 const RegisterView = () => {
     const navigate = useNavigate();
@@ -10,12 +12,18 @@ const RegisterView = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
         const response = await authServerApi.register(email, password);
 
+        const profile:ProfileCreateDto = {
+            id: response
+        }
+
         if (response) {
+            await profileServerApi.create(profile)
             navigate("/dashboard");
         } else {
             // Manejo de error en el registro
