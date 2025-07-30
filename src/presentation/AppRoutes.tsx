@@ -9,6 +9,7 @@ import {CartRoutes} from "./pages/Cart/CartRoutes.tsx";
 import {ProductsRoutes} from "./pages/Products/ProductsRoutes.tsx";
 import {IsAuth} from "./components/isAuth.tsx";
 import {DashboardRoutes} from "./pages/Dashboard/DashboardRoutes.tsx";
+import ProductsView from './pages/Products/ProductsView.tsx';
 
 
 const AppRoutes: React.FC = () => {
@@ -43,7 +44,7 @@ const AppRoutes: React.FC = () => {
         },
         {
             path:'/details',
-            element:<CardDetail/>
+            element:<ProductsView/>
         }
     ];
 

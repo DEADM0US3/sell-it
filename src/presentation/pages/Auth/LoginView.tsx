@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import laptop from "../../../assets/img/laptop.png";
 import {authServerApi} from "../../../infrastructure/http/features/authServerApi.ts";
 import Logo_transparente from '../../../assets/img/Logo_transparente.png';
+import Login_borde from '../../../assets/img/Login_borde.png';
 
 const LoginView = () => {
     const navigate = useNavigate();
@@ -87,9 +88,21 @@ const LoginView = () => {
             </div>
 
             {/* Lado derecho: imagen */}
-            <div className="hidden md:flex items-center justify-center bg-[#C4D7FF] p-10">
-                <img src={laptop} alt="Laptop" className="max-w-md" />
-            </div>
+            <div className="hidden md:flex items-center justify-center relative rounded-bl-full h-[50vh]">
+                <img
+                    src={Login_borde}
+                    alt="Decoración"
+                    className="w-full h-auto"
+                />
+
+                <img
+                    src={laptop}
+                    alt="Laptop"
+                    className="absolute top-1/2 left-1/2 transform -translate-x-1/2  pt-[50vh] -translate-y-1/2 max-w-md z-10"
+                />
+                </div>
+
+
         </div>
     );
 };
