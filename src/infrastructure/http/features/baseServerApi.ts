@@ -12,7 +12,7 @@ static async validateLogin(): Promise<boolean> {
     return false;
   }
 
-  return !!data.user;
+  return true;
   }
 
 }

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios'
 import { toast } from 'sonner';
-import type { LaptopCreateDto } from '../../contracts/laptop/laptopCreateDto';
-import { laptopsServerApi } from '../../infrastructure/http/features/laptopsServerApi';
-import { authServerApi } from '../../infrastructure/http/features/authServerApi';
+import type { LaptopCreateDto } from '../../../../contracts/laptop/laptopCreateDto.ts';
+import { laptopsServerApi } from '../../../../infrastructure/http/features/laptopsServerApi.ts';
+import { authServerApi } from '../../../../infrastructure/http/features/authServerApi.ts';
 
 interface ModalProps {
     isOpen: boolean;
@@ -345,7 +345,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title }) => {
                                     />
                                 </div>
                                 <div className="flex flex-col">
-                                    <label htmlFor="stock"></label>
+                                    <label htmlFor="stock">Stock</label>
                                     <input
                                     id="stock"
                                     type="text"
