@@ -4,7 +4,15 @@
   font-family: "Montserrat", sans-serif !important;
 }
 
+@keyframes float {
+      0%   { transform: translate(0, 0); }
+      50%  { transform: translate(12px, -10px); }
+      100% { transform: translate(0, 0); }
+    }
 
+    .float-smooth {
+      animation: float 3s ease-in-out infinite;
+    }
 /* @theme inline {
   --font-inter: 'Open Sans', sans-serif;
 }
