@@ -82,44 +82,47 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title }) => {
             [name]: checked
         }))}
 
-const handleSubmit = async () => {
-    if (!file) {
-        toast.error('Por favor, selecciona una imagen.');
-        return;
-    }
-
-    const formData = new FormData();
-    formData.append('image', file);
-    formData.append('description', laptop.title);
-
-    if(stepper === true){
-        try {
-            const response = await laptopsServerApi.create(laptop, file)
-            console.log(response)
-        } catch (error) {
-            console.log(error)
+    const handleSubmit = async () => {
+        if (!file) {
+            toast.error('Por favor, selecciona una imagen.');
+            return;
         }
-    }
 
-    const promise = axios.post(api, formData, {
-        headers: {
-            'Content-Type': 'multipart/form-data'
+        const formData = new FormData();
+        formData.append('image', file);
+        formData.append('description', laptop.title);
+
+        if (stepper === true) {
+            try {
+                const response = await laptopsServerApi.create(laptop, file);
+                console.log(response);
+            } catch (error) {
+                console.log(error);
+            }
         }
-    });
 
-    toast.promise(promise, {
-        loading: 'Subiendo imagen...',
-        success: 'Muy bien, falta poco',
-        error: 'El nombre y la imagen no coinciden',
-    });
+        const promise = axios.post(api, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
 
-    promise.then(response => {
-        setStepper(true)
-        console.log(response)
-    }).catch(error => {
-        console.error(error);
-    });
-};
+        toast.promise(promise, {
+            loading: 'Subiendo imagen...',
+            success: 'Muy bien, falta poco',
+            error: 'El nombre y la imagen no coinciden',
+        });
+
+        promise
+            .then(response => {
+                setStepper(true);
+                console.log(response);
+                onClose(); // Cierra el modal después de completar la operación
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    };
 
     
     return (
