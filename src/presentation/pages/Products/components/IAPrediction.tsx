@@ -5,7 +5,7 @@ import {
     Award,
     Target,
     // TrendingUp,
-    CheckCircle,
+    CheckCircle, Info,
 } from 'lucide-react'
 import type {AiPredictionDto} from "../../../../contracts/ai-prediction/ai-predictionDto.ts";
 import type {LaptopDto} from "../../../../contracts/laptop/laptopDto.ts";
@@ -44,7 +44,7 @@ export const RecommendationCard = ({prediction, product}: RecommendationCardProp
                 className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white px-6 py-4 flex items-center justify-between">
                 <div className="flex items-center gap-3 text-3xl font-bold">
                     <Sparkles className="w-8 h-8"/>
-                    Recomendación de Sellit
+                    Recomendación de Sell IT
                 </div>
                 <span className="bg-white/20 text-white border border-white/30 px-2 py-1 rounded uppercase text-sm">
           IA
@@ -52,30 +52,42 @@ export const RecommendationCard = ({prediction, product}: RecommendationCardProp
             </div>
 
             <div className="p-8 space-y-6">
-                <div className={`p-6 rounded-xl border-2 mb-6 ${rec.bg} ${rec.border}`}>
+
+                <div
+                    className={`p-6 rounded-xl border-2 mb-6 ${
+                        isRecommended
+                            ? 'bg-green-50 border-green-200'
+                            : 'bg-gray-100 border-gray-200'
+                    }`}
+                >
                     <div className="flex items-center gap-4 mb-4">
                         {isRecommended ? (
                             <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center">
                                 <ThumbsUp className="w-8 h-8 text-white"/>
                             </div>
                         ) : (
-                            <div className="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center">
-                                <ThumbsDown className="w-8 h-8 text-white"/>
+                            <div className="w-16 h-16 bg-gray-400 rounded-full flex items-center justify-center">
+                                <Info className="w-8 h-8 text-white"/>
                             </div>
                         )}
                         <div>
-                            <h3 className={`text-2xl font-bold ${rec.text}`}>
+                            <h3
+                                className={`text-2xl font-bold ${
+                                    isRecommended ? 'text-green-600' : 'text-gray-700'
+                                }`}
+                            >
                                 {isRecommended
-                                    ? ('¡Recomendamos esta laptop!')
-                                    : ('No recomendamos esta laptop')}
+                                    ? 'Recomendado para ti'
+                                    : 'Quizás prefieras otra opción'}
                             </h3>
-                            {/*<p className={`text-lg ${rec.text}`}>*/}
-                            {/*    {laptop.valeLaPena*/}
-                            {/*        ? 'Este producto ofrece una excelente relación calidad-precio'*/}
-                            {/*        : 'Podrías encontrar mejores opciones en el mercado'}*/}
-                            {/*</p>*/}
                         </div>
                     </div>
+
+                    <p className="text-gray-600">
+                        {isRecommended
+                            ? 'Este modelo ofrece una excelente relación calidad/precio y se ajusta a tus necesidades.'
+                            : 'Te invitamos a explorar otros modelos con características o precios que podrían interesarte más.'}
+                    </p>
                 </div>
 
                 {/* Métricas */}
@@ -103,30 +115,36 @@ export const RecommendationCard = ({prediction, product}: RecommendationCardProp
                     <div className="bg-white p-6 rounded-xl shadow-md border">
                         <div className="flex items-center gap-3 mb-4">
                             <div
-                                className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl flex items-center justify-center">
+                                className={`w-12 h-12 rounded-xl flex items-center justify-center ${
+                                    prediction.priceperformance_label === 'yes'
+                                        ? 'bg-green-500'
+                                        : 'bg-red-500'
+                                }`}
+                            >
                                 <Target className="w-6 h-6 text-white"/>
                             </div>
                             <div>
                                 <p className="font-medium text-gray-600">Calidad-Precio</p>
-                                <p className="text-xl font-bold text-green-600">{prediction.predicted_priceperformance}%</p>
+                                <p
+                                    className={`text-xl font-bold ${
+                                        prediction.priceperformance_label === 'yes'
+                                            ? 'text-green-600'
+                                            : 'text-red-600'
+                                    }`}
+                                >
+                                    {prediction.priceperformance_label === 'yes' ? 'Sí' : 'No'}
+                                </p>
                             </div>
                         </div>
-                        <div className="w-full bg-gray-200 rounded-full h-3">
-                            <div
-                                className="h-3 rounded-full bg-green-600"
-                                style={{width: `${prediction.predicted_priceperformance}%`}}
-                            />
-                        </div>
+
+                        {/* Mensaje explicativo */}
                         <p className="text-sm text-gray-500 mt-2">
-                            {prediction.predicted_priceperformance >= 80
-                                ? 'Excelente'
-                                : prediction.predicted_priceperformance >= 60
-                                    ? 'Buena' : prediction.predicted_priceperformance >= 40
-                                        ? 'Regular' :
-                                        'Mala'
-                            }
+                            {prediction.priceperformance_label === 'yes'
+                                ? 'Este producto ofrece una excelente relación calidad/precio.'
+                                : 'Este producto no cumple con una relación calidad/precio competitiva.'}
                         </p>
                     </div>
+
 
                     {/* Resumen */}
                     <div className=" col-span-2 bg-white p-6 rounded-xl shadow-md border border-indigo-200">
@@ -140,11 +158,10 @@ export const RecommendationCard = ({prediction, product}: RecommendationCardProp
                                 <p className="text-gray-700 leading-relaxed">
                                     Esta laptop{' '}
                                     <strong>{product.brand} {product.model}</strong>{' '}
-                                    es de gama <strong>{prediction.gama_label.toLowerCase()}</strong> y tiene un{' '}
-                                    <strong>{prediction.predicted_priceperformance}% de calidad-precio</strong>.
+                                    es de gama <strong>{prediction.gama_label.toLowerCase()}</strong>.
                                     {isRecommended
-                                        ? 'consideramos que es una excelente opción para tu presupuesto y necesidades.'
-                                        : 'creemos que podrías encontrar mejores alternativas en el mercado.'}
+                                        ? ' Consideramos que es una excelente opción para tu presupuesto y necesidades.'
+                                        : ' Creemos que podrías encontrar mejores alternativas en el mercado.'}
                                 </p>
 
                                 {isRecommended && (
