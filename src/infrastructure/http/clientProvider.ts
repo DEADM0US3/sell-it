@@ -5,5 +5,5 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 
 export const supabaseClient = createClient(
     SUPABASE_URL, // URL
-    SUPABASE_KEY // KEY
+    SUPABASE_KEY, // KEY,
 )

@@ -166,7 +166,7 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ isOpen, onClose }) => {
                                 Vaciar carrito
                             </button>
                             <Link
-                                to="/checkout"
+                                to="/products/checkout"
                                 onClick={onClose}
                                 className="flex-1 py-3 bg-blue-700 text-white font-medium rounded-lg hover:bg-blue-800 transition text-center"
                             >
