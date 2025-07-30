@@ -1,8 +1,9 @@
-import {aiPredictionsServerApi} from "./ai-predictionsServerApi.ts";
+import {aiPredictionsServerApi} from "../features/ai-predictionsServerApi.ts";
+import type {PredictRequestDto} from "../../../contracts/predict/PredictRequestDto.ts";
 
 
-export async function fetchAndSavePrediction(laptopId: string, predictRequestBody: any) {
-    // Paso 1: Llamar a la API /gama
+export async function fetchAndSavePrediction(laptopId: string, predictRequestBody: PredictRequestDto) {
+
     const gamaResp = await fetch('http://127.0.0.1:8000/models/gama', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -10,7 +11,7 @@ export async function fetchAndSavePrediction(laptopId: string, predictRequestBod
     });
     const gamaData = await gamaResp.json();
 
-    // Paso 1: Llamar a la API /priceperformance
+
     const pricePerfResp = await fetch('http://127.0.0.1:8000/models/priceperformance', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -19,7 +20,6 @@ export async function fetchAndSavePrediction(laptopId: string, predictRequestBod
 
     const pricePerfData = await pricePerfResp.json();
 
-    // Paso 2: Crear objeto para insertar en la base
     const aiPredictionPayload = {
         laptop_id: laptopId,
         gama_code: gamaData.gama_code,
@@ -28,7 +28,6 @@ export async function fetchAndSavePrediction(laptopId: string, predictRequestBod
         priceperformance_label: pricePerfData.priceperformance_label
     };
 
-    // Paso 3: Guardar la predicción en Supabase
     const createdPrediction = await aiPredictionsServerApi.create(aiPredictionPayload);
     return createdPrediction;
 }

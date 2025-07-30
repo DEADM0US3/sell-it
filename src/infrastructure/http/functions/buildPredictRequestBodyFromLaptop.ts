@@ -3,28 +3,26 @@ import type {LaptopCreateDto} from "../../../contracts/laptop/laptopCreateDto.ts
 
 export function buildPredictRequestBodyFromLaptop(laptop: LaptopCreateDto) {
     return {
-        status: mapConditionToStatus(laptop.condition),  // 'New' | 'Refurbished' esperados
+        status: mapConditionToStatus(laptop.condition),
         brand: laptop.brand,
         cpu: laptop.cpu,
         ram: laptop.ram_gb,
         storage: laptop.storage_gb,
-        storage_type: mapStorageType(laptop.storage_type),  // Mapeo para 'SSD' | 'eMMC'
+        storage_type: mapStorageType(laptop.storage_type),
         gpu: laptop.gpu,
         screen_size: laptop.screen_size,
         touch_support: laptop.touch_support,
     };
 }
 
-// Mapeo para el campo 'status' esperado por la DB/API (según tu tabla: 'New', 'Refurbished')
 function mapConditionToStatus(condition: LaptopDto["condition"]): "New" | "Refurbished" {
     switch(condition.toLowerCase()) {
         case "new": return "New";
         case "refurbished": return "Refurbished";
-        default: return "New"; // o lanzar error, o manejar 'used' como quieras
+        default: return "New";
     }
 }
 
-// Mapeo para storage_type, que en DTO puede ser más amplio
 function mapStorageType(storageType: LaptopDto["storage_type"]): "SSD" | "eMMC" {
     switch(storageType.toUpperCase()) {
         case "SSD":
@@ -33,6 +31,6 @@ function mapStorageType(storageType: LaptopDto["storage_type"]): "SSD" | "eMMC" 
         case "EMMC":
             return "eMMC";
         default:
-            return "SSD"; // default o error según tu criterio
+            return "SSD";
     }
 }
