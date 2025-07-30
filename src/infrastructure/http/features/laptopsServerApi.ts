@@ -23,8 +23,8 @@ export class laptopsServerApi extends baseServerApi {
     }
 
     static async create(item: LaptopCreateDto, file: File): Promise<LaptopDto | null> {
+        console.log(item, file)
         const supabase = supabaseClient;
-
         const imageUrl = await imageServerApi.uploadImage(file);
 
         if (imageUrl) {

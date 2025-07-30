@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios'
 import { toast } from 'sonner';
 import type { LaptopCreateDto } from '../../contracts/laptop/laptopCreateDto';
+import { laptopsServerApi } from '../../infrastructure/http/features/laptopsServerApi';
+import { authServerApi } from '../../infrastructure/http/features/authServerApi';
 
 interface ModalProps {
     isOpen: boolean;
@@ -10,7 +12,6 @@ interface ModalProps {
 }
 
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title }) => {
-    const [productName, setProductName] = useState('');
     const [imagePreview, setImagePreview] = useState<string | null>(null);
     const [stepper, setStepper] = useState(false)
     const [file, setFile] = useState<File | null>(null);
@@ -33,6 +34,18 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title }) => {
         price: 0,
         image_url: null,
     })
+
+    const fetchUser = async() => {
+        const id = await authServerApi.getUserId()
+        setLaptop(prev => ({
+            ...prev,
+            seller_id: id
+        }))
+    }
+    useEffect(() => {
+        fetchUser()
+    }, [])
+
 
     const api = 'http://localhost:8000/models/validate-laptop'
 
@@ -62,12 +75,13 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title }) => {
 
     const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, checked } = e.target;
+        console.log(laptop.touch_support)
         setLaptop(prev => ({
             ...prev,
             [name]: checked
         }))}
 
-const handleSubmit = () => {
+const handleSubmit = async () => {
     if (!file) {
         toast.error('Por favor, selecciona una imagen.');
         return;
@@ -75,13 +89,23 @@ const handleSubmit = () => {
 
     const formData = new FormData();
     formData.append('image', file);
-    formData.append('description', productName);
+    formData.append('description', laptop.title);
+
+    if(stepper === true){
+        try {
+            const response = await laptopsServerApi.create(laptop, file)
+            console.log(response)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     const promise = axios.post(api, formData, {
         headers: {
             'Content-Type': 'multipart/form-data'
         }
     });
+
     toast.promise(promise, {
         loading: 'Subiendo imagen...',
         success: 'Muy bien, falta poco',
@@ -95,7 +119,6 @@ const handleSubmit = () => {
         console.error(error);
     });
 };
-
 
     
     return (
@@ -150,13 +173,14 @@ const handleSubmit = () => {
 
                         {/* Título del producto */}
                         <div className="flex flex-col mt-4">
-                            <label htmlFor="productName">Nombre del producto</label>
+                            <label htmlFor="title">Nombre del producto</label>
                             <input
-                            id="productName"
+                            id="title"
                             type="text"
                             placeholder="Titulo"
-                            value={productName}
-                            onChange={(e) => setProductName(e.target.value)}
+                            name="title"
+                            value={laptop.title}
+                            onChange={handleInputChange}
                             className="mt-1 border border-black px-3 py-1 rounded-md"
                             />
                         </div>

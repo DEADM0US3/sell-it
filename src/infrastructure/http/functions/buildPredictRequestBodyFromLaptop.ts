@@ -2,16 +2,23 @@ import type {LaptopDto} from "../../../contracts/laptop/laptopDto.ts";
 import type {LaptopCreateDto} from "../../../contracts/laptop/laptopCreateDto.ts";
 
 export function buildPredictRequestBodyFromLaptop(laptop: LaptopCreateDto) {
+
+    let touch = 'No'
+    if(laptop.touch_support === true){
+        touch = 'Yes'
+    }
+
     return {
-        status: mapConditionToStatus(laptop.condition),
-        brand: laptop.brand,
-        cpu: laptop.cpu,
-        ram: laptop.ram_gb,
-        storage: laptop.storage_gb,
-        storage_type: mapStorageType(laptop.storage_type),
-        gpu: laptop.gpu,
-        screen_size: laptop.screen_size,
-        touch_support: laptop.touch_support,
+        Status: mapConditionToStatus(laptop.condition),
+        Brand: laptop.brand,
+        Model: laptop.model,
+        CPU: laptop.cpu,
+        RAM: laptop.ram_gb,
+        Storage: laptop.storage_gb,
+        Storage_type: mapStorageType(laptop.storage_type),
+        GPU: laptop.gpu,
+        Screen: laptop.screen_size,
+        Touch: touch,
     };
 }
 
