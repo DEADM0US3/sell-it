@@ -1,7 +1,6 @@
 import React from 'react';
 import BeginContainerStyle from "../../components/BeginContainerStyle.tsx";
 import { CardDetail } from '../../components/CardDetails.tsx';
-import { Footer } from '../../layout/components/Footer.tsx';
 
 const ProductsView: React.FC = () => {
     return (
@@ -24,7 +23,6 @@ const ProductsView: React.FC = () => {
                 </div>
             </BeginContainerStyle>
 
-            <Footer />
         </>
     );
 }
