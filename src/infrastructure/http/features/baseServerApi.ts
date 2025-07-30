@@ -4,6 +4,7 @@ export class baseServerApi {
 
 
 static async validateLogin(): Promise<boolean> {
+
   const { data, error } = await supabaseClient.auth.getUser();
 
   if (error) {
@@ -13,4 +14,5 @@ static async validateLogin(): Promise<boolean> {
 
   return !!data.user;
   }
+
 }
