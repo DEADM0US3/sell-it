@@ -10,9 +10,14 @@ import {
     TrendingUp,
 } from "lucide-react";
 import InfoCard from "./components/InfoCard.tsx";
+import { useState } from "react";
+import Modal from "../../components/Modal.tsx";
 
 const DashboardView = () => {
-
+    const [isOpen, setIsOpen] = useState(false)
+        const close = () => {
+        setIsOpen(false)
+    }
     const salesData = {
         totalSales: 1250000,
         totalOrders: 3420,
@@ -74,6 +79,12 @@ const DashboardView = () => {
                         <h1 className="text-3xl font-bold text-gray-900">Dashboard de Ventas</h1>
                         <p className="text-gray-600 mt-2">Resumen de rendimiento y métricas clave</p>
                     </div>
+
+                    <div className='w-full flex justify-end py-4 px-8'>
+                        <button className='p-2 rounded-lg bg-blue-500 text-white semibold cursor-pointer' onClick={() => setIsOpen(true)}>Publicar nueva Laptop</button>
+                    </div>
+
+            <Modal isOpen={isOpen} onClose={close}/>
 
                     {/* KPIs principales */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

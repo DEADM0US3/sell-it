@@ -14,5 +14,6 @@ export interface LaptopCreateDto {
     condition: 'new' | 'used' | 'refurbished';
     description: string;
     price: number;
+    stock: number;
     image_url: File | null;
 }
