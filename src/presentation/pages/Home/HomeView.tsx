@@ -68,12 +68,12 @@ const HomeView: React.FC = () => {
                 </button>
             </div>
 
-            <div className='bg-[#14479D] w-full h-[10vh] mt-[2vh] flex items-center justify-center'>
+            <div className='bg-[#14479D] w-full h-[10vh] mt-[2vh] flex items-center justify-center mx-auto'>
                 <p className='text-[#E4E9F5] text-center font-semibold text-3xl md:text-5xl montserrat'>
                     Conoce todas nuestras promociones
                 </p>
             </div>
-              <div className='w-full h-[80vh] flex flex-col border-t shadow-lg border-t-slate-400 my-[8vh] px-8 relative'>
+              <div className='w-full h-[80vh] flex flex-col  border-t-slate-400 my-[8vh] px-8 relative'>
                 <div className='mb-4 px-[5vw] mt-[6vh] justify-between flex'>
                    <div>
                         <p className='font-semibold text-[#484848] text-2xl mb-1'>Lo más nuevo en Sell IT</p>
