@@ -6,7 +6,6 @@ import Flecha_derecha from '../../../assets/img/Flecha_derecha.png'
 import Fond_pago from '../../../assets/img/Fond_pago.jpeg'
 import Laptop_home from '../../../assets/img/36ce44f3-5765-40b3-b2c2-6f6179579726.png'
 import Logo_mercado from '../../../assets/img/Logo_mercado.jpeg'
-import { Footer } from '../../layout/components/Footer';
 import { laptopsServerApi } from '../../../infrastructure/http/features/laptopsServerApi';
 import React, { useEffect, useState, useRef } from 'react';
 import type { LaptopDto } from '../../../contracts/laptop/laptopDto';
@@ -28,14 +27,28 @@ const HomeView: React.FC = () => {
     useEffect(() => {
         fetchData()
     }, [])
+
     const scrollRef = useRef<HTMLDivElement>(null);
 
-    const scrollRight = () => {
-        if (scrollRef.current) {
-            scrollRef.current.scrollBy({ left: 300, behavior: 'smooth' });
-        }
-    };
+    useEffect(() => {
+        const interval = setInterval(() => {
+            if (!scrollRef.current) return;
 
+            const scrollContainer = scrollRef.current;
+            const firstCard = scrollContainer.firstChild;
+            const cardWidth = firstCard instanceof HTMLElement ? firstCard.clientWidth : 0;
+            const maxScrollLeft = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+
+            // Si llegó al final, regresa al principio
+            if (scrollContainer.scrollLeft + cardWidth >= maxScrollLeft) {
+                scrollContainer.scrollTo({ left: 0, behavior: 'smooth' });
+            } else {
+                scrollContainer.scrollBy({ left: cardWidth + 24, behavior: 'smooth' }); // 24 = gap-6
+            }
+        }, 2000); // cada 4 segundos
+
+        return () => clearInterval(interval); // limpia el intervalo al desmontar
+    }, []);
 
 
 
@@ -86,25 +99,19 @@ const HomeView: React.FC = () => {
                         </button>
                     </div>
                 </div>
-                <div className='flex items-center justify-center flex-1 relative mx-auto overflow-hidden w-max-100'>
-
-                    <div className='absolute overflow-hidden left-4 top-1/2 transform -translate-y-1/2 z-10'>
-                        <img className='w-[2vw] h-[2vw] cursor-pointer' src={Flecha_izquierda} alt='Flecha izquierda' />
-                    </div>
-
-                    <div ref={scrollRef} className='overflow-scroll  overflow-y-hidden scrollbar-hide flex gap-12 '>
-                        {
-                            data && (
-                                data.map((item, index) => (
-                                    <div key={index} className='min-w-[250px] max-w-[250px] w-full md:w-[23%] hidden md:block first:block"'>
-                                        <CardsProduct laptop={item} />
-                                    </div>
-                                ))
-                            )
-                        }
-                    </div>
-                    <div className='absolute right-4 top-1/2 transform -translate-y-1/2 z-10'>
-                        <img className='w-[2vw] h-[2vw] cursor-pointer ' onClick={scrollRight} src={Flecha_derecha} alt='Flecha derecha' />
+                <div className="w-full overflow-x-hidden">
+                    <div
+                        ref={scrollRef}
+                        className="flex gap-6 overflow-x-auto overflow-y-hidden px-4 scrollbar-hide scroll-smooth snap-x snap-mandatory"
+                    >
+                        {data?.map((item, index) => (
+                            <div
+                                key={index}
+                                className="flex-shrink-0 snap-start w-[85%] sm:w-[60%] md:w-[23%] min-w-[250px] max-w-[280px]"
+                            >
+                                <CardsProduct laptop={item} />
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>
@@ -151,7 +158,7 @@ const HomeView: React.FC = () => {
 
 
             </div>
-            
+
         </>
     );
 };
