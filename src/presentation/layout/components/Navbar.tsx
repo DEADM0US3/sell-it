@@ -2,8 +2,9 @@ import {Link, useNavigate} from "react-router-dom";
 import {authServerApi} from "../../../infrastructure/http/features/authServerApi.ts";
 import {userServerApi} from "../../../infrastructure/http/features/userServerApi.ts";
 import {useEffect, useState} from "react";
-import ShoppingCart from "../../../shared/components/ShoppingCart.tsx";
 import LoadingScreen from "../../components/LoadingScreen.tsx";
+import ShoppingCart from "../../../shared/components/ShoppingCart.tsx";
+
 
 export const Navbar = () => {
     const navigate = useNavigate();
@@ -18,20 +19,19 @@ export const Navbar = () => {
     const [user, setUser] = useState<{ name: string; avatarUrl: string }>();
     const [cartCount, setCartCount] = useState(0);
 
-    // Controles UI
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const [userMenuOpen, setUserMenuOpen] = useState(false);
-
-    // Verificar sesión
     useEffect(() => {
-        (async () => {
+        const checkAuth = async () => {
             try {
                 const userId = await authServerApi.getUserId();
                 setIsAuth(!!userId);
-            } catch {
+            } catch (error) {
+                console.error("Error checking authentication:", error);
                 setIsAuth(false);
             }
-        })();
+        };
+
+        checkAuth();
+
     }, []);
 
     // Verificar rol
@@ -83,104 +83,104 @@ export const Navbar = () => {
     if (!user) return <LoadingScreen />
 
     return (
-        <>
-            <nav className="bg-[#2563eb] ">
-                <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-                    {/* Logo */}
-                    <Link
-                        to="/"
-                        className="text-2xl font-bold text-white hover:text-blue-200 transition-colors"
-                    >
-                        Sell IT
-                    </Link>
+        <><nav className="bg-[#15489C] shadow-md px-6 py-4 flex justify-end items-center montserrat">
 
-                    {/* Hamburger (móvil) */}
-                    <button
-                        className="sm:hidden text-white focus:outline-none"
-                        aria-label="Toggle menu"
-                        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                    >
-                        {mobileMenuOpen ? (
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none"
-                                 viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                                      d="M6 18L18 6M6 6l12 12"/>
-                            </svg>
-                        ) : (
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none"
-                                 viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                                      d="M4 8h16M4 16h16"/>
-                            </svg>
-                        )}
-                    </button>
+            <div className="flex items-center space-x-6">
+                <Link to="/" className=" text-white hover:text-gray-200 transition-colors montserrat ">
+                    🏠 Inicio
+                </Link>
+                <Link
+                    to="/products"
+                    className="text-white hover:text-blue-200 font-medium transition-colors montserrat"
+                >
+                    💻
+                    Laptops
+                </Link>
 
-                    {/* Menú principal */}
-                    <div className="hidden sm:flex items-center text-sm space-x-6">
-                        <Link to="/products"
-                              className="text-white flex items-center space-x-2 hover:text-blue-200 font-medium transition-colors">
-                            💻
-                            Laptops
-                        </Link>
-
-
-                        {isSeller && (
-                            <Link to="/dashboard"
-                                  className="text-white space-x-2 items-center flex hover:text-blue-200 font-medium transition-colors">
+                {
+                    isSeller ? (
+                        <>
+                            <Link
+                                to="/dashboard"
+                                className="text-white hover:text-blue-200 font-medium transition-colors montserrat "
+                            >
                                 📦 Mis productos
                             </Link>
-                        )}
+                        </>
+                    ) : null
+                }
 
-                        <button
-                            onClick={() => setCartOpen(true)}
-                            className="flex items-center text-sm space-x-2 text-white hover:text-blue-200 font-medium transition-colors">
-                             🛒
-                                Carrito
-                            {cartCount > 0 && (
-                                <span
-                                    className="absolute -top-1 -right-3 bg-red-500 text-white text-xs font-semibold w-5 h-5 rounded-full flex items-center justify-center">
+                <button
+                    onClick={() => setCartOpen(true)}
+                    className="flex relative items-center text-sm space-x-2 text-white hover:text-blue-200 font-medium transition-colors">
+                    🛒
+                    Carrito
+                    {cartCount > 0 && (
+                        <span
+                            className="absolute -top-1 -right-5 bg-red-500 text-white text-xs font-semibold w-5 h-5 rounded-full flex items-center justify-center">
                             {cartCount}
                           </span>
-                            )}
-                        </button>
+                    )}
+                </button>
 
-                        {isAuth ? (
-                            <div className="relative">
-                                <button
-                                    onClick={() => setUserMenuOpen(!userMenuOpen)}
-                                    className="flex items-center space-x-2 focus:outline-none"
-                                >
-                                    <img
-                                        src={user.avatarUrl || "/placeholder-avatar.png"}
-                                        alt="Avatar"
-                                        className="w-8 h-8 rounded-full"
-                                    />
-                                    <span className="text-white font-medium">{user.name || "Usuario"}</span>
-                                </button>
-                                {userMenuOpen && (
-                                    <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2 z-50">
-                                        <Link to="/profile" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                                            Perfil
-                                        </Link>
-                                        <button
-                                            onClick={handleLogout}
-                                            className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
-                                        >
-                                            Cerrar sesión
-                                        </button>
-                                    </div>
-                                )}
-                            </div>
-                        ) : (
-                            <Link to="/login"
-                                  className="bg-white text-blue-700 font-semibold px-4 py-2 rounded-md hover:bg-blue-100 transition-colors">
-                                Iniciar sesión
-                            </Link>
-                        )}
+                {
+                    isAuth ? (
+                        <div
+                            onClick={handleLogout}
+                            className="bg-[#648ACB] ml-5 text-white font-semibold px-4 py-2 montserrat  hover:bg-blue-500 transition-colors rounded-3xl "
+                        >
+                            Cerrar Sesión
+                        </div>
+                    ) : (
+                        <Link
+                            to="/login"
+                            className="bg-[#648ACB] text-white font-semibold px-4 py-2 montserrat hover:bg-blue-500 transition-colors rounded-3xl"
+                        >
+                            Mi cuenta
+                        </Link>
+                    )
+                }
+
+            </div>
+        </nav>
+            <div className="bg-white overflow-hidden border-t border-gray-200">
+                <div className="bg-white overflow-hidden border-t border-gray-200">
+                    <div className="whitespace-nowrap">
+                        <div
+                            className="inline-block animate-marquee"
+                            style={{
+                                animation: 'marquee 30s linear infinite',
+                                display: 'inline-block',
+                            }}
+                        >
+                            <span className="text-[#648ACB] montserrat font-medium mx-8">
+                                Compra mínima de $12500 MXN | Envíos a todo México |
+                            </span>
+                            <span className="text-[#648ACB] montserrat font-medium mx-8">
+                                Compra mínima de $12500 MXN | Envíos a todo México |
+                            </span>
+                            <span className="text-[#648ACB] montserrat font-medium mx-8">
+                                Compra mínima de $12500 MXN | Envíos a todo México |
+                            </span>
+                            <span className="text-[#648ACB] montserrat font-medium mx-8">
+                                ¡Conviértete en distribuidor!
+                            </span>
+                        </div>
                     </div>
+
+                    <style>{`
+    @keyframes marquee {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+  `}</style>
                 </div>
-            </nav>
+
+            </div>
+
             <ShoppingCart isOpen={cartOpen} onClose={() => setCartOpen(false)}/>
+
         </>
+
     );
 };
