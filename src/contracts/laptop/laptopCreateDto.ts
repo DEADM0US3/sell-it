@@ -8,6 +8,7 @@ export interface LaptopCreateDto {
     storage_gb: number;
     storage_type: 'HDD' | 'SSD' | 'NVMe' | 'eMMC';
     gpu: string;
+    stock: number;
     screen_size: number;
     touch_support: boolean;
     battery_life_hours: number;

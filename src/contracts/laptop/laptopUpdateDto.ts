@@ -6,6 +6,7 @@ export interface LaptopUpdateDto {
     cpu: string;
     ram_gb: number;
     storage_gb: number;
+    stock: number;
     storage_type: 'HDD' | 'SSD' | 'NVMe';
     gpu: string;
     screen_size: number;
