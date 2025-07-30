@@ -5,6 +5,10 @@ import { useCallback, useEffect, useState } from "react";
 import LoadingScreen from "../../components/LoadingScreen.tsx";
 import ShoppingCart from "../../../shared/components/ShoppingCart.tsx";
 import { Menu, X } from "lucide-react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLaptop } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { faBox } from '@fortawesome/free-solid-svg-icons';
 
 export const Navbar = () => {
     const navigate = useNavigate();
@@ -103,21 +107,21 @@ export const Navbar = () => {
                 {/* Menú Desktop */}
                 <div className="hidden md:flex items-center space-x-6">
                     <Link to="/" className="text-white hover:text-gray-200 transition">
-                        🏠 Inicio
+                         <FontAwesomeIcon  className="px-[1vw]"  icon={faHome} /> Inicio
                     </Link>
                     <Link to="/products" className="text-white hover:text-blue-200 font-medium transition">
-                        💻 Laptops
+                         <FontAwesomeIcon  className="px-[1vw]"  icon={faLaptop} /> Laptops
                     </Link>
                     {isSeller && (
                         <Link to="/dashboard" className="text-white hover:text-blue-200 font-medium transition">
-                            📦 Mis productos
+                             <FontAwesomeIcon className="px-[1vw]" icon={faBox} />  Mis productos
                         </Link>
                     )}
                     <button
                         onClick={() => setCartOpen(true)}
                         className="relative flex items-center text-white hover:text-blue-200 font-medium transition"
                     >
-                        🛒 Carrito
+                        <FontAwesomeIcon  className="px-[1vw]"  icon={faShoppingCart} /> Carrito
                         {cartCount > 0 && (
                             <span className="absolute -top-1 -right-4 bg-red-500 text-white text-xs font-semibold w-5 h-5 rounded-full flex items-center justify-center">
                 {cartCount}
