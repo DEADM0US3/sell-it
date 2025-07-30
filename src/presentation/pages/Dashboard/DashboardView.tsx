@@ -14,15 +14,15 @@ const DashboardView: React.FC = () => {
 
     const scrollRight = () => {
         if (scrollRef.current) {
-                scrollRef.current.scrollBy({ left: 300, behavior: 'smooth' });
-            }
+            scrollRef.current.scrollBy({left: 300, behavior: 'smooth'});
+        }
     };
 
-    const fetchData = async() => {
+    const fetchData = async () => {
         try {
             const user = await userServerApi.get()
             console.log(user?.id)
-            if(user === null){
+            if (user === null) {
                 return console.log('Nada aqui')
             }
             const response = await laptopsServerApi.getByUserId(user?.id)
@@ -57,24 +57,23 @@ const DashboardView: React.FC = () => {
                         <img className='w-[2vw] h-[2vw] cursor-pointer' src={Flecha_izquierda} alt='Flecha izquierda' />
                     </div>
                         <div ref={scrollRef} className='overflow-x-auto overflow-y-hidden scrollbar-hide flex gap-4'>
-                            { data.map((item, index) => (
+                            {data.map((item, index) => (
                                 <div key={index} className='min-w-[250px] max-w-[250px]'>
-                                <CardsProduct laptop={item}/>
+                                    <CardsProduct laptop={item}/>
                                 </div>
                             ))}
                         </div>
-                    <div className='absolute right-4 top-1/2 transform -translate-y-1/2 z-10'>
-                        <img className='w-[2vw] h-[2vw] cursor-pointer '  onClick={scrollRight} src={Flecha_derecha} alt='Flecha derecha'  />
+                        <div className='absolute right-4 top-1/2 transform -translate-y-1/2 z-10'>
+                            <img className='w-[2vw] h-[2vw] cursor-pointer ' onClick={scrollRight} src={Flecha_derecha}
+                                 alt='Flecha derecha'/>
+                        </div>
                     </div>
-                </div>
-            ) : (
-                <p>Aun no hay nada que ver aqui</p>
-            )
-        }
-        
-
-    </>
-)
+                ) : (
+                    <p>Aun no hay nada que ver aqui</p>
+                )
+            }
+        </>
+    )
 }
 
 export default DashboardView;

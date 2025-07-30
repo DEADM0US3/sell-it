@@ -1,53 +1,101 @@
-import Laptop_dell from '../../assets/img/Laptop_dell.png';
+// src/components/CardDetail.tsx
+import React, { useState } from 'react';
+import { Plus, Minus } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import type { LaptopDto } from '../../contracts/laptop/laptopDto.ts';
+import LaptopPlaceholder from '../../assets/img/laptop-placeholder.png';
+interface CardDetailProps {
+    product: LaptopDto;
+}
 
-export const CardDetail = () => {
+/**
+ * CardDetail
+ * Componente de detalle de producto con UI profesional y UX sobresaliente.
+ */
+export const CardDetail: React.FC<CardDetailProps> = ({ product }) => {
+    const [quantity, setQuantity] = useState(1);
+
+    const handleAddToCart = () => {
+        const currentCart: Array<LaptopDto & { quantity: number }> =
+            JSON.parse(localStorage.getItem('cart') || '[]');
+
+        const existing = currentCart.find(item => item.id === product.id);
+        if (existing) {
+            existing.quantity += quantity;
+        } else {
+            currentCart.push({ ...product, quantity });
+        }
+
+        localStorage.setItem('cart', JSON.stringify(currentCart));
+        window.dispatchEvent(new Event('cartUpdated'));
+    };
+
+    const increment = () => setQuantity(q => q + 1);
+    const decrement = () => setQuantity(q => Math.max(1, q - 1));
+
     return (
-        <div>
-        <div className="flex rounded-xl  w-[80vw] py-[5vh] max-w-5xl h-[55vh] mx-auto">
-        
-            <div className=" bg-white border border-slate-100 rounded-2xl shadow-2xl flex items-center justify-center w-[30vw] ">
+        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 bg-white rounded-3xl shadow-lg overflow-hidden">
+            {/* Imagen */}
+            <div className="bg-gray-50 p-6 flex items-center justify-center">
                 <img
-                    src={Laptop_dell}
-                    alt="Laptop"
-                    className="w-[80%] h-auto object-contain"
+                    src={product.image_url || LaptopPlaceholder}
+                    alt={product.title}
+                    className="object-contain w-full h-80"
                 />
             </div>
 
-            <div className="text-white px-[5vw] w-[30vw] flex flex-col justify-between">
+            {/* Detalles */}
+            <div className="p-6 flex flex-col justify-between">
                 <div>
-                    <h2 className="text-xl font-bold leading-snug">
-                        ASUS <br />
-                        Laptop VivoBook Go 15 E1504F 15.6 pulgadas
-                    </h2>
-                    <p className="text-lg font-semibold mt-4">$20,000 mxn</p>
+                    <span className="text-sm text-gray-500">{product.seller_id}</span>
+                    <h1 className="text-3xl font-bold mt-1">{product.title}</h1>
+                    <p className="text-2xl font-semibold text-gray-800 mt-3">
+                        ${product.price.toLocaleString('es-MX')} MXN
+                    </p>
                 </div>
 
-                <div className="mt-6">
-                    <label className="block mb-1 text-sm font-medium">Cantidad</label>
-                    <div className="flex items-center gap-4">
-                        <input
-                            type="number"
-                            min="1"
-                            defaultValue="1"
-                            className="w-[5rem] h-[10vh] p-2 rounded-md text-white border border-gray-300"
-                        />
-                      <div className='flex flex-col'>
-                         <div>
-                             <button className="bg-white border-slate-300 border text-[#21519F] px-4 py-2 rounded-full w-[27vw] font-semibold hover:bg-gray-100 transition">
-                                Agregar al carrito
+                {/* Cantidad y acciones */}
+                <div className="space-y-6">
+                    <div>
+                        <label className="text-sm font-medium text-gray-700 block mb-1">
+                            Cantidad
+                        </label>
+                        <div className="inline-flex items-center border border-gray-300 rounded-lg overflow-hidden">
+                            <button
+                                onClick={decrement}
+                                className="p-2 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            >
+                                <Minus size={16} />
                             </button>
-                       </div>
-                       <div>
-                            <button className="border border-slate-300 mt-4 text-white px-4 py-2 rounded-full w-[27vw] font-semibold hover:bg-white hover:text-[#14489D] transition">
-                                Comprar ahora
+                            <span className="px-4 text-lg font-medium text-gray-900">
+                {quantity}
+              </span>
+                            <button
+                                onClick={increment}
+                                className="p-2 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            >
+                                <Plus size={16} />
                             </button>
-                       </div>
-                      </div>
+                        </div>
                     </div>
-                   
+
+                    <div className="flex flex-col sm:flex-row gap-4">
+                        <button
+                            onClick={handleAddToCart}
+                            className="flex-1 px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        >
+                            Agregar al carrito
+                        </button>
+                        <Link
+                            to="/checkout"
+                            onClick={handleAddToCart}
+                            className="flex-1 px-6 py-3 border border-blue-600 text-blue-600 font-semibold rounded-lg hover:bg-blue-50 transition focus:outline-none focus:ring-2 focus:ring-blue-500 text-center"
+                        >
+                            Comprar ahora
+                        </Link>
+                    </div>
                 </div>
             </div>
-        </div>
         </div>
     );
 };
