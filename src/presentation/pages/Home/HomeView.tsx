@@ -1,10 +1,10 @@
 
-import Logo_transparente from '../../../assets/img/Logo_transparente.png';
+import Logo_transparente from '../../../assets/img/logo_01.png';
 import Borde_home from '../../../assets/img/Borde_home.png';
 import Flecha_izquierda from '../../../assets/img/Flecha_izquierda.png';
 import Flecha_derecha from '../../../assets/img/Flecha_derecha.png'
 import Fond_pago from '../../../assets/img/Fond_pago.jpeg'
-import Laptop_home from '../../../assets/img/Laptop_home.png'
+import Laptop_home from '../../../assets/img/36ce44f3-5765-40b3-b2c2-6f6179579726.png'
 import Logo_mercado from '../../../assets/img/Logo_mercado.jpeg'
 import { Footer } from '../../layout/components/Footer';
 import { laptopsServerApi } from '../../../infrastructure/http/features/laptopsServerApi';
@@ -41,19 +41,19 @@ const HomeView: React.FC = () => {
     return (
 
         <>
-            <div className=' w-full md:h-[10vh] rounded-b-full'>
-                <img className='h-[15vh] w-full' src={Borde_home}/>
+            <div className=' h-[10vh] md:h-[20vh] rounded-b-full gap-0'>
+                <img className='h-full w-full' src={Borde_home}/>
             </div>
 
-               <div className='flex flex-col md:flex-row justify-center items-center px-6 md:px-10 gap-8 md:gap-[6%] mt-[6vh] md:mt-[22vh]'>
-                    <div className='w-full md:w-[40vw] h-[30vh] md:h-[40vh] flex items-center justify-center rounded-lg'>
+               <div className='flex flex-col md:flex-row justify-center items-center px-6 md:px-10 gap-8 md:gap-[6%]'>
+                    <div className='w-full md:w-[40vw] h-[45%] md:h-[40%] flex items-center justify-center rounded-lg'>
                         <img
                         src={Logo_transparente}
                         alt='Logo'
-                        className='w-auto max-h-full object-contain'
+                        className='w-[50%] md:w-auto pt-4 md:pt-0 max-h-full object-contain'
                         />
                     </div>
-                    <div className='w-full md:w-[40vw] h-[35vh] md:h-[50vh] flex items-center justify-center rounded-lg'>
+                    <div className='w-full md:w-[40vw] h-[35vh] md:h-[50vh] flex items-center justify-center rounded-lg float-smooth'>
                         <img
                         src={Laptop_home}
                         alt='Promoción'
@@ -62,18 +62,18 @@ const HomeView: React.FC = () => {
                     </div>
                 </div>
 
-            <div className='flex justify-center my-4'>
-                <button className='bg-[#14489D] w-[25vw] md:w-[12vw] text-white rounded-md py-2 shadow-md hover:bg-[#123c80] transition'>
+            <div className='flex justify-center my-4 pb-[5%]'>
+                <button className='bg-[#14489D] w-[25vw] md:w-[12vw] text-white  py-3 shadow-md hover:bg-[#123c80] transition rounded-3xl montserrat font-semibold hover:font-bold'>
                     Ir a tienda
                 </button>
             </div>
 
-            <div className='bg-[#14479D] w-full h-[10vh] mt-[2vh] flex items-center justify-center'>
-                <p className='text-white text-center font-semibold text-2xl'>
+            <div className='bg-[#14479D] w-full h-[10vh] mt-[2vh] flex items-center justify-center mx-auto'>
+                <p className='text-[#E4E9F5] text-center font-semibold text-3xl md:text-5xl montserrat'>
                     Conoce todas nuestras promociones
                 </p>
             </div>
-              <div className='w-full h-[80vh] flex flex-col border-t shadow-lg border-t-slate-400 my-[8vh] px-8 relative'>
+              <div className='w-full h-[80vh] flex flex-col  border-t-slate-400 my-[8vh] px-8 relative'>
                 <div className='mb-4 px-[5vw] mt-[6vh] justify-between flex'>
                    <div>
                         <p className='font-semibold text-[#484848] text-2xl mb-1'>Lo más nuevo en Sell IT</p>
