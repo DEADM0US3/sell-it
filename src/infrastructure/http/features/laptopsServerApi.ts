@@ -4,6 +4,8 @@
     import type {LaptopCreateDto} from "../../../contracts/laptop/laptopCreateDto.ts";
     import type { LaptopUpdateDto } from "../../../contracts/laptop/laptopUpdateDto.ts";
     import {imageServerApi} from "./imageServerApi.ts";
+    import {fetchAndSavePrediction} from "./fetchAndSavePrediction.ts";
+    import {buildPredictRequestBodyFromLaptop} from "./buildPredictRequestBodyFromLaptop.ts";
 
     export class laptopsServerApi extends baseServerApi {
 
@@ -20,24 +22,39 @@
             return data as LaptopDto[];
         }
 
-        static async create(item: LaptopCreateDto, file : File): Promise<LaptopDto | null> {
-
+        static async create(item: LaptopCreateDto, file: File): Promise<LaptopDto | null> {
             const supabase = supabaseClient;
-            const { data, error } = await supabase.from("laptops").insert(item).select().single();
 
-            const imageUrl = await imageServerApi.uploadImage(file)
+            const imageUrl = await imageServerApi.uploadImage(file);
 
-            if(imageUrl){
-                item.image_url = imageUrl?.toString();
+            if (imageUrl) {
+                item.image_url = imageUrl.toString();
             }
+
+            const { data, error } = await supabase
+                .from("laptops")
+                .insert(item)
+                .select()
+                .single();
 
             if (error) {
                 console.error("Error creating item:", error);
                 return null;
             }
 
+            try {
+                // Asumiendo que tienes una función para armar el cuerpo PredictRequest a partir de 'item'
+                const predictRequestBody = buildPredictRequestBodyFromLaptop(item);
+
+                // Esperar a que la predicción se complete y se guarde
+                await fetchAndSavePrediction(data.id, predictRequestBody);
+            } catch (error) {
+                console.error("Error fetching or saving prediction:", error);
+            }
+
             return data as LaptopDto;
         }
+
 
         static async delete(id: string): Promise<boolean | null> {
             if (await this.validateLogin()) {

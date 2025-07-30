@@ -1,8 +1,7 @@
 export interface AiPredictionCreateDto {
-    laptop_id: string;
-    predicted_price: number;
-    price_quality_rating: 'excellent' | 'good' | 'poor';
-    performance_rating: 'low' | 'medium' | 'high';
-    cpu_score: number;
-    recommended_storage_type: 'HDD' | 'SSD' | 'NVMe';
+    laptop_id: string; // UUID que referencia a laptops.id
+    gama_code: number;
+    gama_label: 'baja' | 'media' | 'alta';
+    predicted_priceperformance: number;
+    priceperformance_label: 'yes' | 'no';
 }
