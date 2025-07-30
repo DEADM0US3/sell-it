@@ -7,6 +7,7 @@ import PC from "../../../assets/img/PC.png";
 import logo from "../../../assets/img/logo.png";
 import { authServerApi } from "../../../infrastructure/http/features/authServerApi.ts";
 import { Box, Button } from "@mui/material";
+import { toast } from 'sonner'; 
 
 const RegisterView = () => {
     const navigate = useNavigate();
@@ -34,8 +35,10 @@ const RegisterView = () => {
         const response = await authServerApi.register(name, email, password, role);
 
         if (response) {
+            toast.success('Bienvenido a Sell IT')
             navigate("/dashboard");
         } else {
+            toast.error('Hubo un error al registrar al usuario')
             console.error("Error al registrar el usuario");
         }
     };
@@ -90,7 +93,16 @@ const RegisterView = () => {
                                     Siguiente
                                 </Button>
                             </div>
+
+                            <button
+                                type="button"
+                                onClick={() => navigate("/login")}
+                                className="border-2 border-[#1E3865] absolute bottom-10 right-10 text-[#1E3865] px-6 py-2 rounded-md hover:bg-[#f0f4ff] transition"
+                            >
+                                Iniciar sesión
+                            </button>
                         </div>
+                        
                     )}
 
                     {activeStep === 1 && (
@@ -154,14 +166,6 @@ const RegisterView = () => {
                         </>
                     )}
                 </form>
-
-                <button
-                    type="button"
-                    onClick={() => navigate("/login")}
-                    className="border-2 border-[#1E3865] absolute bottom-10 right-10 text-[#1E3865] px-6 py-2 rounded-md hover:bg-[#f0f4ff] transition"
-                >
-                    Iniciar sesión
-                </button>
             </div>
         </div>
     );
