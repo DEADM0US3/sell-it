@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { toast } from 'sonner';
-import type { LaptopCreateDto } from '../../contracts/laptop/laptopCreateDto';
-import { laptopsServerApi } from '../../infrastructure/http/features/laptopsServerApi';
-import { authServerApi } from '../../infrastructure/http/features/authServerApi';
 import { Image, X } from 'lucide-react';
 import {
     useForm,
     FormProvider,
     type FieldErrors,
 } from 'react-hook-form';
-import {predictLaptopPrice} from "../../infrastructure/http/functions/fetchAndSavePrediction.ts";
+import type {LaptopCreateDto} from "../../../../contracts/laptop/laptopCreateDto.ts";
+import {authServerApi} from "../../../../infrastructure/http/features/authServerApi.ts";
+import {laptopsServerApi} from "../../../../infrastructure/http/features/laptopsServerApi.ts";
+import {predictLaptopPrice} from "../../../../infrastructure/http/functions/fetchAndSavePrediction.ts";
 
 interface ModalProps {
     isOpen: boolean;
