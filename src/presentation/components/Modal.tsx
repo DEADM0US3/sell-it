@@ -32,6 +32,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title }) => {
         condition: 'used',
         description: '',
         price: 0,
+        stock: 0,
         image_url: null,
     })
 
@@ -336,6 +337,18 @@ const handleSubmit = async () => {
                                     placeholder='16'
                                     name='battery_life_hours'
                                     value={laptop.battery_life_hours}
+                                    onChange={handleInputChange}
+                                    className="mt-1 border border-black px-3 py-1 rounded-md"
+                                    />
+                                </div>
+                                <div className="flex flex-col">
+                                    <label htmlFor="stock"></label>
+                                    <input
+                                    id="stock"
+                                    type="text"
+                                    placeholder='16'
+                                    name='stock'
+                                    value={laptop.stock}
                                     onChange={handleInputChange}
                                     className="mt-1 border border-black px-3 py-1 rounded-md"
                                     />
