@@ -21,7 +21,7 @@ const BeginContainerStyle:
                     xmlns="http://www.w3.org/2000/svg"
                 >
                     <path
-                        fill="#2563eb"
+                        fill="#15489C"
                         d="M0,160 C360,500 1080,0 1440,160 L1440,0 L0,0 Z"
                     />
                 </svg>
