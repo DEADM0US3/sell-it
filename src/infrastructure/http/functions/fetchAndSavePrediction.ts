@@ -41,3 +41,19 @@ export async function predictLaptopPrice(request: PredictRequestDto) {
     const priceData: { predicted_price_mxn: number } = await priceResp.json();
     return priceData.predicted_price_mxn;
 }
+
+export async function getRecommendations(prompt: string) {
+    // Construimos la URL con el prompt como query parameter
+    const url = `http://localhost:8000/models/recommendation?prompt=${encodeURIComponent(prompt)}`
+
+    const recommendationsResp = await fetch(url, {
+        method: 'POST'  // o 'POST' si tu backend sigue esperando POST pero ignorando el body
+    })
+
+    if (!recommendationsResp.ok) {
+        throw new Error('Failed to fetch recommendations')
+    }
+
+    const recommendationsData: { recommendation: string } = await recommendationsResp.json()
+    return recommendationsData
+}
