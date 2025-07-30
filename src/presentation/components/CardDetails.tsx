@@ -96,7 +96,7 @@ export const CardDetail: React.FC<CardDetailProps> = ({ product }) => {
                     <div className="flex flex-col sm:flex-row gap-4">
                         <button
                             onClick={handleAddToCart}
-                            className="flex-1 px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="flex-1 px-6 py-3 bg-[#14489D] text-white font-semibold rounded-lg hover:bg-blue-700 transition focus:outline-none focus:ring-2 focus:ring-blue-500"
                         >
                             Agregar al carrito
                         </button>

@@ -9,7 +9,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import type { LaptopDto } from '../../../contracts/laptop/laptopDto';
 import { CardsProduct } from "../../components/CardProduct.tsx";
 import image10 from '@/assets/img/image10.png';
-
+import { Link } from 'react-router-dom';
 const HomeView: React.FC = () => {
     const [data, setData] = useState<LaptopDto[]>()
 
@@ -75,9 +75,12 @@ const HomeView: React.FC = () => {
             </div>
 
             <div className='flex justify-center my-4 pb-[5%]'>
+                <Link to="/products" className='hidden md:block'>
                 <button className='bg-[#14489D] w-[25vw] md:w-[12vw] text-white  py-3 shadow-md hover:bg-[#123c80] transition rounded-3xl montserrat font-semibold hover:font-bold'>
                     Ir a tienda
                 </button>
+                </Link>
+                
             </div>
 
             <div className='bg-[#14479D] w-full h-[10vh] mt-[2vh] flex items-center justify-center mx-auto'>

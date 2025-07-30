@@ -1,7 +1,3 @@
-
-
-
-
 const BeginContainerStyle:
     React.FC<{
         children: React.ReactNode
@@ -13,9 +9,9 @@ const BeginContainerStyle:
 
     return (
         <>
-            <div className="absolute w-full h-[80dvh] overflow-hidden -z-10">
+            <div className="absolute w-full h-[80dvh] overflow-hidden -z-10 flex justify-center">
                 <svg
-                    className="absolute inset-0 w-full h-full scale-x-[-1]"  // 👈 inversión horizontal
+                    className="absolute inset-0 w-full h-full scale-x-[-1] left-0"  
                     viewBox="0 0 1440 300"
                     preserveAspectRatio="none"
                     xmlns="http://www.w3.org/2000/svg"
