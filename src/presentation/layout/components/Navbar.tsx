@@ -76,7 +76,7 @@ export const Navbar = () => {
 
     return (
         <>
-            <nav className="bg-[#15489C] shadow-md px-4 md:px-10 py-4 flex items-center justify-between montserrat">
+            <nav className="bg-[#15489C] shadow-md px-4 md:px-10 py-4 flex md:items-center md:justify-between montserrat">
                 {/* Logo o avatar en desktop */}
                 {user && (
                     <div className="hidden md:flex items-center space-x-2">
@@ -88,6 +88,9 @@ export const Navbar = () => {
                         <span className="text-white font-semibold">{user.name}</span>
                     </div>
                 )}
+                <div>
+
+                </div>
 
                 {/* Botón hamburguesa mobile */}
                 <button
