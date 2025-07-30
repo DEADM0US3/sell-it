@@ -6,6 +6,7 @@ import type { LaptopDto } from '../../../contracts/laptop/laptopDto';
 import { laptopsServerApi } from '../../../infrastructure/http/features/laptopsServerApi';
 import { authServerApi } from '../../../infrastructure/http/features/authServerApi';
 import { userServerApi } from '../../../infrastructure/http/features/userServerApi';
+import Modal from '../../components/Modal';
 
 const DashboardView: React.FC = () => {
     const [data, setData] = useState<LaptopDto[] | null>()
@@ -43,7 +44,7 @@ const DashboardView: React.FC = () => {
         <button className='p-2 rounded-lg bg-blue-500 text-white semibold cursor-pointer'>Publicar nueva Laptop</button>
     </div>
 
-
+        <Modal isOpen={true} />
 
         {
             data ? (
