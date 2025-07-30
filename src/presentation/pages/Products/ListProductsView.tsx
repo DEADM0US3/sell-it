@@ -77,7 +77,7 @@ const ListProductsView: React.FC = () => {
                 </div>
             </div>
 
-            <button onClick={() => setMostrarModal(true)} className="bg-[#14489D] text-white text-xl mt-6 px-4 font-medium hover:font-bold py-2 rounded-full flex items-center justify-center mx-auto mb-10 montserrat transition hover:bg-[#10397d] transition">
+            <button onClick={() => setMostrarModal(true)} className="bg-[#14489D] text-white text-lg mt-6 px-4 font-medium hover:font-semibold py-2 rounded-full flex items-center justify-center mx-auto mb-10 montserrat transition hover:bg-[#10397d] transition">
                 Buscar mi laptop ideal
             </button>
 
