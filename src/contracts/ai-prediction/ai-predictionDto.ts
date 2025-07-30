@@ -1,10 +1,12 @@
-export interface AiPredictionDto {
-    id: string;
-    laptop_id: string;
-    predicted_price: number;
-    price_quality_rating: 'excellent' | 'good' | 'poor';
-    performance_rating: 'low' | 'medium' | 'high';
-    cpu_score: number;
-    recommended_storage_type: 'HDD' | 'SSD' | 'NVMe';
-    created_at: string;
+export interface PredictRequest {
+    Status: "New" | "Refurbished";
+    Brand: string;
+    Model: string;
+    CPU: string;
+    RAM: number;
+    Storage: number;
+    Storage_type: "SSD" | "eMMC";
+    GPU: string;
+    Screen: number;
+    Touch: "Yes" | "No";
 }

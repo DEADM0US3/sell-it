@@ -27,7 +27,9 @@
 
             const imageUrl = await imageServerApi.uploadImage(file)
 
-            item.
+            if(imageUrl){
+                item.image_url = imageUrl?.toString();
+            }
 
             if (error) {
                 console.error("Error creating item:", error);
