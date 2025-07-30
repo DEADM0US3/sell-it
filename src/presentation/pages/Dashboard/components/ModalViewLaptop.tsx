@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { toast } from "sonner";
 import type { LaptopDto } from "../../../../contracts/laptop/laptopDto.ts";
 import { laptopsServerApi } from "../../../../infrastructure/http/features/laptopsServerApi.ts";
-import axios from "axios";
 
 interface ModalEditarLaptopProps {
     laptopToEdit: LaptopDto;
