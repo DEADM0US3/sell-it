@@ -4,6 +4,7 @@ import laptop from "../../../assets/img/laptop.png";
 import {authServerApi} from "../../../infrastructure/http/features/authServerApi.ts";
 import Logo_transparente from '../../../assets/img/Logo_transparente.png';
 import Login_borde from '../../../assets/img/Login_borde.png';
+import { toast } from "sonner";
 
 const LoginView = () => {
     const navigate = useNavigate();
@@ -13,14 +14,17 @@ const LoginView = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-
-        const response = await authServerApi.login(email, password);
-
-        if (response) {
-
-            navigate("/dashboard");
-        } else {
-            return false;
+        try {
+            const response = await authServerApi.login(email, password);
+            if (response) {
+                toast.success('Bienvenido');
+                navigate("/dashboard");
+            } else {
+                return toast.error('Las credenciales no son correctas');
+            }
+        } catch (error) {
+            console.log(error)
+            toast.error('Algo ha salido mal')
         }
     };
 
