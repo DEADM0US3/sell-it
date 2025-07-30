@@ -1,8 +1,6 @@
 
 import Logo_transparente from '../../../assets/img/logo_01.png';
 import Borde_home from '../../../assets/img/Borde_home.png';
-import Flecha_izquierda from '../../../assets/img/Flecha_izquierda.png';
-import Flecha_derecha from '../../../assets/img/Flecha_derecha.png'
 import Fond_pago from '../../../assets/img/Fond_pago.jpeg'
 import Laptop_home from '../../../assets/img/36ce44f3-5765-40b3-b2c2-6f6179579726.png'
 import Logo_mercado from '../../../assets/img/Logo_mercado.jpeg'

@@ -1,28 +1,32 @@
-import { Link, useNavigate } from "react-router-dom";
-import { authServerApi } from "../../../infrastructure/http/features/authServerApi.ts";
-import { useEffect, useState } from "react";
-import { userServerApi } from "../../../infrastructure/http/features/userServerApi.ts";
+import {Link, useNavigate} from "react-router-dom";
+import {authServerApi} from "../../../infrastructure/http/features/authServerApi.ts";
+import {userServerApi} from "../../../infrastructure/http/features/userServerApi.ts";
+import {useEffect, useState} from "react";
+import LoadingScreen from "../../components/LoadingScreen.tsx";
+import ShoppingCart from "../../../shared/components/ShoppingCart.tsx";
+
 
 export const Navbar = () => {
-
     const navigate = useNavigate();
+
+    // Estados de auth y rol
     const [isAuth, setIsAuth] = useState(false);
     const [isSeller, setIsSeller] = useState(false);
+    const [cartOpen, setCartOpen] = useState(false);
 
-    useEffect(() => {
-        const checkAuth = async () => {
-            try {
-                const userId = await userServerApi.getRole();
-                setIsSeller(userId === "seller");
-            } catch (error) {
-                console.error("Error checking authentication:", error);
-                setIsSeller(false);
-            }
-        };
 
-        checkAuth();
+    // Datos de perfil y carrito
+    const [user, setUser] = useState<{ name: string; avatarUrl: string }>();
+    const [cartCount, setCartCount] = useState(0);
 
-    }, []);
+    const updateCartCount = () => {
+        try {
+            const items: Array<any> = JSON.parse(localStorage.getItem("cart") || "[]");
+            setCartCount(Array.isArray(items) ? items.length : 0);
+        } catch {
+            setCartCount(0);
+        }
+    };
 
     useEffect(() => {
         const checkAuth = async () => {
@@ -39,24 +43,86 @@ export const Navbar = () => {
 
     }, []);
 
+    // Verificar rol
+    useEffect(() => {
+        (async () => {
+            try {
+                const role = await userServerApi.getRole();
+                setIsSeller(role === "seller");
+            } catch {
+                setIsSeller(false);
+            }
+        })();
+    }, []);
+
+    // Cargar perfil y carrito desde localStorage
+    useEffect(() => {
+        if (!isAuth) {
+            setCartCount(0);
+            return;
+        }
+
+        // Perfil
+        (async () => {
+            try {
+                const profile = await userServerApi.getProfile();
+                setUser({
+                    name: profile?.full_name ?? "Rodrigo",
+                    avatarUrl: profile?.avatar_url ?? "/placeholder-avatar.png",
+                });
+            } catch {
+                // deja valores por defecto
+            }
+        })();
+
+        // Carrito desde localStorage
+        try {
+            const items = JSON.parse(localStorage.getItem("cart") ?? "[]");
+            setCartCount(Array.isArray(items) ? items.length : 0);
+        } catch {
+            setCartCount(0);
+        }
+    }, [isAuth]);
+
+    useEffect(() => {
+        // Inicializa el count
+        updateCartCount();
+
+        // Cuando disparas window.dispatchEvent(new Event('cartUpdated'))
+        window.addEventListener("cartUpdated", updateCartCount);
+
+        // Si el carrito cambia en otra pestaña (storage event)
+        window.addEventListener("storage", (e) => {
+            if (e.key === "cart") updateCartCount();
+        });
+
+        return () => {
+            window.removeEventListener("cartUpdated", updateCartCount);
+            // Para remover el listener de storage, guardamos la función:
+            window.removeEventListener("storage", updateCartCount as any);
+        };
+    }, []);
+
+    const handleLogout = async () => {
+        await authServerApi.logout();
+        navigate("/login");
+    };
+
+    if (!user) return <LoadingScreen />
+
     return (
         <><nav className="bg-[#15489C] shadow-md px-6 py-4 flex justify-end items-center montserrat">
 
             <div className="flex items-center space-x-6">
-                <Link to="/" className=" text-white hover:text-gray-200 transition-colors montserrat hover:font-bold">
-                    Inicio
+                <Link to="/" className=" text-white hover:text-gray-200 transition-colors montserrat ">
+                    🏠 Inicio
                 </Link>
                 <Link
                     to="/products"
-                    className="text-white hover:text-blue-200 font-medium transition-colors montserrat hover:font-bold"
+                    className="text-white hover:text-blue-200 font-medium transition-colors montserrat"
                 >
-                    Productos
-                </Link>
-                <Link
-                    to="/cart"
-                    className="text-white hover:text-blue-200 font-medium transition-colors montserrat hover:font-bold"
-                >
-                    Carrito
+                    💻
+                    Laptops
                 </Link>
 
                 {
@@ -64,30 +130,39 @@ export const Navbar = () => {
                         <>
                             <Link
                                 to="/dashboard"
-                                className="text-white hover:text-blue-200 font-medium transition-colors montserrat hover:font-bold"
+                                className="text-white hover:text-blue-200 font-medium transition-colors montserrat "
                             >
-                                Dashboard
+                                📦 Mis productos
                             </Link>
                         </>
                     ) : null
                 }
 
+                <button
+                    onClick={() => setCartOpen(true)}
+                    className="flex relative items-center text-sm space-x-2 text-white hover:text-blue-200 font-medium transition-colors">
+                    🛒
+                    Carrito
+                    {cartCount > 0 && (
+                        <span
+                            className="absolute -top-1 -right-5 bg-red-500 text-white text-xs font-semibold w-5 h-5 rounded-full flex items-center justify-center">
+                            {cartCount}
+                          </span>
+                    )}
+                </button>
 
                 {
                     isAuth ? (
                         <div
-                            onClick={async () => {
-                                await authServerApi.logout()
-                                navigate("/login");
-                            }}
-                            className="bg-[#648ACB] text-white font-semibold px-4 py-2 montserrat  hover:bg-blue-500 transition-colors rounded-3xl hover:font-bold"
+                            onClick={handleLogout}
+                            className="bg-[#648ACB] ml-5 text-white font-semibold px-4 py-2 montserrat  hover:bg-blue-500 transition-colors rounded-3xl "
                         >
-                            Logout
+                            Cerrar Sesión
                         </div>
                     ) : (
                         <Link
                             to="/login"
-                            className="bg-[#648ACB] text-white font-semibold px-4 py-2 montserrat hover:bg-blue-500 transition-colors rounded-3xl hover:font-bold"
+                            className="bg-[#648ACB] text-white font-semibold px-4 py-2 montserrat hover:bg-blue-500 transition-colors rounded-3xl"
                         >
                             Mi cuenta
                         </Link>
@@ -131,9 +206,9 @@ export const Navbar = () => {
 
             </div>
 
+            <ShoppingCart isOpen={cartOpen} onClose={() => setCartOpen(false)}/>
 
         </>
-
 
     );
 };
