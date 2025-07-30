@@ -7,6 +7,7 @@ export interface LaptopDto {
     cpu: string;
     ram_gb: number;
     storage_gb: number;
+    stock: number;
     storage_type: 'HDD' | 'SSD' | 'NVMe' | 'eMMC';
     gpu: string;
     screen_size: number;
