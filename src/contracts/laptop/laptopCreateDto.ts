@@ -14,5 +14,5 @@ export interface LaptopCreateDto {
     condition: 'new' | 'used' | 'refurbished';
     description: string;
     price: number;
-    image_url: string; // Ruta absoluta o relativa de la imagen
+    image_url: File | null;
 }

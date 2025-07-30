@@ -4,7 +4,7 @@ import type {PredictRequestDto} from "../../../contracts/predict/PredictRequestD
 
 export async function fetchAndSavePrediction(laptopId: string, predictRequestBody: PredictRequestDto) {
 
-    const gamaResp = await fetch('http://127.0.0.1:8000/models/gama', {
+    const gamaResp = await fetch('http://localhost:8000/models/gama', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(predictRequestBody)
@@ -12,7 +12,7 @@ export async function fetchAndSavePrediction(laptopId: string, predictRequestBod
     const gamaData = await gamaResp.json();
 
 
-    const pricePerfResp = await fetch('http://127.0.0.1:8000/models/priceperformance', {
+    const pricePerfResp = await fetch('http://localhost:8000/models/priceperformance', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(predictRequestBody)
