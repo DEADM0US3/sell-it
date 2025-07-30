@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
     DollarSign,
     Laptop,
@@ -14,7 +14,6 @@ import { aiPredictionsServerApi } from "../../../infrastructure/http/features/ai
 import type { LaptopDto } from "../../../contracts/laptop/laptopDto.ts";
 import type { AiPredictionDto } from "../../../contracts/ai-prediction/ai-predictionDto.ts";
 import {authServerApi} from "../../../infrastructure/http/features/authServerApi.ts";
-import { useState } from "react";
 import Modal from "../../components/Modal.tsx";
 
 const DashboardView = () => {
