@@ -31,3 +31,13 @@ export async function fetchAndSavePrediction(laptopId: string, predictRequestBod
     const createdPrediction = await aiPredictionsServerApi.create(aiPredictionPayload);
     return createdPrediction;
 }
+
+export async function predictLaptopPrice(request: PredictRequestDto) {
+    const priceResp = await fetch('http://localhost:8000/models/price', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(request)
+    })
+    const priceData: { predicted_price_mxn: number } = await priceResp.json();
+    return priceData.predicted_price_mxn;
+}
