@@ -3,6 +3,7 @@ import type { ConversationDto } from "../../../contracts/conversation/conversati
 import type { ConversationCreateDto } from "../../../contracts/conversation/conversationCreateDto.ts";
 
 export class conversationsServerApi {
+
   static async getByUser(userId: string): Promise<ConversationDto[]> {
     const { data, error } = await supabaseClient
         .from("conversations")
@@ -31,4 +32,5 @@ export class conversationsServerApi {
 
     return data as ConversationDto;
   }
+
 }
