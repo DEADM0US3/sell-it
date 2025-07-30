@@ -5,9 +5,9 @@ import type { ConversationCreateDto } from '../../contracts/conversation/convers
 
 describe('Integration: conversationsServerApi', () => {
     const conversation:ConversationCreateDto = {
-        buyer_id:'',
-        seller_id:'',
-        laptop_id:''
+        buyer_id:import.meta.env.VITE_TEST_BUYER_ID,
+        seller_id:import.meta.env.VITE_TEST_SELLER_ID,
+        laptop_id:import.meta.env.VITE_TEST_RANDOM_ID
     }
 
     it('should fetch a conversation', async() => {

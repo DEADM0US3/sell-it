@@ -1,16 +1,19 @@
 export interface LaptopCreateDto {
-    seller_id?: string | null; // UUID null rn
+    seller_id?: string | null; // UUID, null mientras no esté autenticado o asignado
     title: string;
     brand: string;
     model: string;
     cpu: string;
     ram_gb: number;
     storage_gb: number;
-    storage_type: 'HDD' | 'SSD' | 'NVMe';
+    storage_type:  'SSD' | 'eMMC';
     gpu: string;
+    stock: number;
     screen_size: number;
+    touch_support: boolean;
     battery_life_hours: number;
-    condition: 'new' | 'used';
+    condition: 'new' | 'used' | 'refurbished';
     description: string;
     price: number;
+    image_url: File | null;
 }

@@ -28,8 +28,8 @@ describe('Integration: authServerApi', () => {
     });
 
     it('should change the test user password', async () => {
-        const newPassword = 'newPasswordKekeke'
-        const response  = await authServerApi.changePassword(newPassword);
+        const response  = await authServerApi.changePassword('something');
+        await authServerApi.changePassword(user.password);
         expect(response).toBeTruthy();
     });
 
