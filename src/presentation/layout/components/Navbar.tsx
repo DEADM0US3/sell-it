@@ -5,14 +5,18 @@ import { useCallback, useEffect, useState } from "react";
 import LoadingScreen from "../../components/LoadingScreen.tsx";
 import ShoppingCart from "../../../shared/components/ShoppingCart.tsx";
 import { Menu, X } from "lucide-react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLaptop } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { faBox } from '@fortawesome/free-solid-svg-icons';
 
 export const Navbar = () => {
     const navigate = useNavigate();
-    const [isAuth, setIsAuth] = useState(false);
+    const [isAuth, setIsAuth]     = useState(false);
     const [isSeller, setIsSeller] = useState(false);
     const [cartOpen, setCartOpen] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
-    const [user, setUser] = useState<{ name: string; avatarUrl: string }>();
+    const [user, setUser]         = useState<{ name: string; avatarUrl: string }>();
     const [cartCount, setCartCount] = useState(0);
 
     // Chequeos de auth y perfil…
@@ -76,7 +80,7 @@ export const Navbar = () => {
 
     return (
         <>
-            <nav className="bg-[#15489C] shadow-md px-4 md:px-10 py-4 flex items-center justify-between montserrat">
+            <nav className="bg-[#15489C] shadow-md px-4 md:px-10 py-4 flex md:items-center md:justify-between montserrat">
                 {/* Logo o avatar en desktop */}
                 {user && (
                     <div className="hidden md:flex items-center space-x-2">
@@ -88,6 +92,9 @@ export const Navbar = () => {
                         <span className="text-white font-semibold">{user.name}</span>
                     </div>
                 )}
+                <div>
+
+                </div>
 
                 {/* Botón hamburguesa mobile */}
                 <button
@@ -99,39 +106,39 @@ export const Navbar = () => {
 
                 {/* Menú Desktop */}
                 <div className="hidden md:flex items-center space-x-6">
-                    <Link to="/" className="text-white transition hover:text-gray-200 transition">
-                        🏠 Inicio
+                    <Link to="/" className="text-white hover:text-gray-200 transition">
+                         <FontAwesomeIcon  className="px-[1vw]"  icon={faHome} /> Inicio
                     </Link>
-                    <Link to="/products" className="text-white transition hover:text-blue-200 font-medium transition">
-                        💻 Laptops
+                    <Link to="/products" className="text-white hover:text-blue-200 font-medium transition">
+                         <FontAwesomeIcon  className="px-[1vw]"  icon={faLaptop} /> Laptops
                     </Link>
                     {isSeller && (
-                        <Link to="/dashboard" className="text-white transition hover:text-blue-200 font-medium transition">
-                            📦 Mis productos
+                        <Link to="/dashboard" className="text-white hover:text-blue-200 font-medium transition">
+                             <FontAwesomeIcon className="px-[1vw]" icon={faBox} />  Mis productos
                         </Link>
                     )}
                     <button
                         onClick={() => setCartOpen(true)}
-                        className="relative flex items-center text-white transition hover:text-blue-200 font-medium transition"
+                        className="relative flex items-center text-white hover:text-blue-200 font-medium transition"
                     >
-                        🛒 Carrito
+                        <FontAwesomeIcon  className="px-[1vw]"  icon={faShoppingCart} /> Carrito
                         {cartCount > 0 && (
                             <span className="absolute -top-1 -right-4 bg-red-500 text-white text-xs font-semibold w-5 h-5 rounded-full flex items-center justify-center">
-                                {cartCount}
-                            </span>
+                {cartCount}
+              </span>
                         )}
                     </button>
                     {isAuth ? (
                         <button
                             onClick={handleLogout}
-                            className="bg-[#648ACB] text-white font-semibold px-4 py-2 transition hover:bg-blue-500 transition rounded-3xl"
+                            className="bg-[#648ACB] text-white font-semibold px-4 py-2 hover:bg-blue-500 transition rounded-3xl"
                         >
                             Cerrar Sesión
                         </button>
                     ) : (
                         <Link
                             to="/login"
-                            className="bg-[#648ACB] text-white font-semibold px-4 py-2 transition hover:bg-blue-500 transition rounded-3xl"
+                            className="bg-[#648ACB] text-white font-semibold px-4 py-2 hover:bg-blue-500 transition rounded-3xl"
                         >
                             Iniciar Sesión
                         </Link>
@@ -177,8 +184,8 @@ export const Navbar = () => {
                                 🛒 Carrito
                                 {cartCount > 0 && (
                                     <span className="ml-2 bg-red-500 text-white text-xs font-semibold w-5 h-5 rounded-full flex items-center justify-center">
-                                        {cartCount}
-                                    </span>
+                    {cartCount}
+                  </span>
                                 )}
                             </button>
                             {isAuth ? (
@@ -212,7 +219,7 @@ export const Navbar = () => {
                         className="inline-block animate-marquee"
                         style={{ animation: "marquee 60s linear infinite" }}
                     >
-                        <span className="text-[#648ACB] montserrat font-medium mx-8">
+            <span className="text-[#648ACB] montserrat font-medium mx-8">
                             Envíos a todo México
                         </span>
                         <span className="text-[#648ACB] montserrat font-medium mx-8">

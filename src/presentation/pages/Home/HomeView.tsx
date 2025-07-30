@@ -3,12 +3,12 @@ import Logo_transparente from '../../../assets/img/logo_01.png';
 import Borde_home from '../../../assets/img/Borde_home.png';
 import Fond_pago from '../../../assets/img/Fond_pago.jpeg'
 import Laptop_home from '../../../assets/img/36ce44f3-5765-40b3-b2c2-6f6179579726.png'
-import Logo_mercado from '../../../assets/img/Logo_mercado.jpeg'
+import Logo_mercado from '../../../assets/img/stripe.png'
 import { laptopsServerApi } from '../../../infrastructure/http/features/laptopsServerApi';
 import React, { useEffect, useState, useRef } from 'react';
 import type { LaptopDto } from '../../../contracts/laptop/laptopDto';
 import { CardsProduct } from "../../components/CardProduct.tsx";
-import image10 from '@/assets/img/image10.png';
+import image10 from '@/assets/img/stripefondo.png';
 import { Link } from 'react-router-dom';
 const HomeView: React.FC = () => {
     const [data, setData] = useState<LaptopDto[]>()
@@ -51,7 +51,6 @@ const HomeView: React.FC = () => {
 
 
     return (
-
         <>
             <div className=' h-[10vh] md:h-[20vh] rounded-b-full gap-0'>
                 <img className='h-full w-full' src={Borde_home} />
@@ -122,37 +121,39 @@ const HomeView: React.FC = () => {
                     src={Fond_pago}
                     alt='Fondo de pago'
                 />
-                <div className='absolute md:text-sm top-1/2 flex transform -translate-y-1/2 max-w-full md:max-w-[100vw] min-w-full md:min-w-[5vw] px-4 md:px-0md:rounded-none items-center justify-center w-full gap-24'
+                <div className='absolute md:text-sm top-1/2 flex transform -translate-y-1/2 max-w-full md:max-w-[100vw] min-w-full md:min-w-[6vw]  md:px-0md:rounded-none items-center justify-center w-full '
                 >
-                    <div className='flex flex-col items-center justify-center w-full md:w-[100vw]'>
+                    <div className='flex flex-col items-center justify-center w-full md:w-[120vw]'>
                         <img
-                            className='w-min-[500px] h-auto mb-[-12%] '
+                            className=' object-center  w-[120%] h-auto '
                             src={image10}
                             alt='Fondo de pago'
                         />
                     </div>
                     <div className='flex flex-col items-center justify-start w-full md:w-[100vw]'>
-                        <div className='text-2xl md:text-3xl text-[#14489D] font-bold mb-4 justify-start'>
+                        <div className='text-3xl md:text-5xl text-[#14489D] font-bold mb-4 justify-start'>
                             <p>Paga fácil y seguro</p>
                             <div className='flex items-center flex-wrap'>
-                                <span>con Mercado Pago</span>
+                                <span>con</span>
                                 <img
-                                    className='h-[5vh] w-auto ml-2'
+                                    className='h-[10vh] w-auto ml-2'
                                     src={Logo_mercado}
-                                    alt='Logo Mercado Pago'
+                                    alt='Logo Stripe'
                                 />
                             </div>
                         </div>
-                        <p className='mb-2 text-[#484848]'>
-                            Elige el método que más se ajuste a ti:
-                        </p>
-                        <ul className='list-disc text-[#484848] list-inside mb-4'>
-                            <li>Tarjeta de crédito</li>
-                            <li>Tarjeta de débito</li>
-                        </ul>
-                        <p className='text-[#14479D] font-semibold'>
-                            Tu pago se acredita al instante para procesar tu pedido sin demoras.
-                        </p>
+                        <div className="flex flex-col items-center justify-start">
+                            <p className=' text-2xl text-[#484848]'>
+                                Elige el método que más se ajuste a ti:
+                            </p>
+                            <ul className='list-disc text-xl text-start text-[#484848] list-inside mb-4'>
+                                <li>Tarjeta de crédito</li>
+                                <li>Tarjeta de débito</li>
+                            </ul>
+                            <p className='text-[#14479D] text-lg font-semibold'>
+                                Tu pago se acredita al instante para procesar tu pedido sin demoras.
+                            </p>
+                        </div>
                     </div>
 
                 </div>

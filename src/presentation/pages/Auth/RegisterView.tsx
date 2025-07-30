@@ -8,6 +8,8 @@ import logo from "../../../assets/img/logo.png";
 import { authServerApi } from "../../../infrastructure/http/features/authServerApi.ts";
 import { Box, Button } from "@mui/material";
 import { toast } from 'sonner'; 
+import Logo_transparente from '../../../assets/img/Logo_transparente.png';
+import Registro_borde from '../../../assets/img/Registro_borde.png';
 
 const RegisterView = () => {
     const navigate = useNavigate();
@@ -46,14 +48,28 @@ const RegisterView = () => {
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 min-h-screen">
             {/* Imagen a la izquierda */}
-            <div className="hidden md:flex items-center justify-center bg-[#C4D7FF] p-10">
-                <img src={PC} alt="Laptop" className="max-w-md" />
+         <div className="hidden md:flex   relative bg-white">
+            {/* Imagen de fondo (borde decorativo) */}
+            <img
+                src={Registro_borde}
+                alt="Borde"
+                className="w-[45vw] h-[50vw] z-0 "
+            />
+
+            {/* Imagen de la PC encima */}
+            <img
+                src={PC}
+                alt="Laptop"
+                className="absolute w-[20rem]  z-10 top-[40%]  my-auto flex justify-center items-center mx-[5vw] transform "
+            />
             </div>
+
+
 
             {/* Formulario a la derecha */}
             <div className="flex flex-col justify-center px-10 lg:px-20">
                 <div className="flex md:justify-end">
-                    <img src={logo} alt="Logo" className="mb-8 object-cover object-center w-40"/>
+                    <img src={Logo_transparente} alt="Logo" className="mb-8 object-cover object-center w-40"/>
                 </div>
 
                 <h1 className="text-2xl font-bold md:text-end text-[#1E3865] mb-4">
@@ -88,7 +104,8 @@ const RegisterView = () => {
                                 <option value="seller">Vendedor</option>
                             </select>
 
-                            <div className="flex justify-end mt-6">
+                            <div className='flex justify-center'>
+                                <div className="flex justify-end mt-[12vh]">
                                 <Button variant="contained" color="primary" onClick={handleNext}>
                                     Siguiente
                                 </Button>
@@ -97,10 +114,11 @@ const RegisterView = () => {
                             <button
                                 type="button"
                                 onClick={() => navigate("/login")}
-                                className="border-2 border-[#1E3865] absolute bottom-10 right-10 text-[#1E3865] px-6 py-2 rounded-md transition hover:bg-[#f0f4ff] transition"
+                                className="border-2 border-[#1E3865] absolute bottom-10 right-10 text-[#1E3865] mt-[6vh] px-6 py-2 rounded-md transition hover:bg-[#f0f4ff] "
                             >
                                 Iniciar sesión
                             </button>
+                            </div>
                         </div>
                         
                     )}
