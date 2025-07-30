@@ -4,7 +4,7 @@ import {useNavigate} from "react-router-dom";
 
 interface CardProductProps {
     laptop: LaptopDto;
-    imageSrc: string;
+    imageSrc?: string;
 }
 
 export const  CardsProduct: React.FC<CardProductProps> = ({ laptop, imageSrc }) => {

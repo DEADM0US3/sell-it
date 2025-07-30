@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {authServerApi} from "../../../infrastructure/http/features/authServerApi.ts";
 import {useEffect, useState} from "react";
 
 export const Navbar = () => {
 
+    const navigate = useNavigate();
     const [isAuth, setIsAuth] = useState(false);
 
     useEffect(() => {
@@ -56,12 +57,15 @@ export const Navbar = () => {
 
                 {
                     isAuth? (
-                        <Link
-                            to="logout"
+                        <div
+                            onClick={async () => {
+                                await authServerApi.logout()
+                                navigate("/login");
+                            }}
                             className="bg-white text-blue-700 font-semibold px-4 py-2 rounded-md hover:bg-blue-100 transition-colors"
                         >
                             Logout
-                        </Link>
+                        </div>
                     ): (
                         <Link
                             to="/login"

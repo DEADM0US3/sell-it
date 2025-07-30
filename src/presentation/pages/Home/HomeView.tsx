@@ -1,4 +1,4 @@
-import { CardsProduct } from '../../components/CardProduct';
+import { CardsProduct } from '../../layout/components/CardProduct';
 import Logo_transparente from '../../../assets/img/Logo_transparente.png';
 import Borde_home from '../../../assets/img/Borde_home.png';
 import Flecha_izquierda from '../../../assets/img/Flecha_izquierda.png';
@@ -10,6 +10,7 @@ import { Footer } from '../../layout/components/Footer';
 import { laptopsServerApi } from '../../../infrastructure/http/features/laptopsServerApi';
 import React, { useEffect, useState, useRef } from 'react';
 import type { LaptopDto } from '../../../contracts/laptop/laptopDto';
+import {CardsProduct} from "../../components/CardProduct.tsx";
 
 const HomeView: React.FC = () => {
     const [data, setData] = useState<LaptopDto[]>()
@@ -26,7 +27,6 @@ const HomeView: React.FC = () => {
     useEffect(() => {
         fetchData()
     }, [])
-    
     const scrollRef = useRef<HTMLDivElement>(null);
 
         const scrollRight = () => {
@@ -76,8 +76,8 @@ const HomeView: React.FC = () => {
               <div className='w-full h-[80vh] flex flex-col border-t shadow-lg border-t-slate-400 my-[8vh] px-8 relative'>
                 <div className='mb-4 px-[5vw] mt-[6vh] justify-between flex'>
                    <div>
-                        <p className='font-semibold text-[#484848] text-2xl mb-1'>Lo más vendido de Sell It</p>
-                        <span className='text-[#484848]'>Laptops que vuelan... ¡no te quedes sin la tuya!</span>
+                        <p className='font-semibold text-[#484848] text-2xl mb-1'>Lo más nuevo en Sell IT</p>
+                        <span className='text-[#484848]'>Laptops al mejor precio... ¡no te quedes sin la tuya!</span>
                     </div>
                     <div>
                         <button className='bg-[#1E4E9C] text-white w-[25vw] md:w-[8vw] h-[4vh] rounded-2xl'>
